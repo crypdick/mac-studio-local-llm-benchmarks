@@ -5,3 +5,6 @@ __pycache__/
 slots/
 raw-reasoning/
 .DS_Store
+.new-feature/
+.worktrees/
+*.local.toml
