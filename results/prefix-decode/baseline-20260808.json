@@ -1,0 +1,73 @@
+{
+  "config": {
+    "batch_size": 2048,
+    "cache_type_k": "q8_0",
+    "cache_type_v": "q8_0",
+    "ctx_size": 65536,
+    "decode_ignore_eos": true,
+    "decode_runs": 3,
+    "decode_tokens": 64,
+    "flash_attn": true,
+    "parallel": 1,
+    "prefill_runs": 1,
+    "ubatch_size": 2048
+  },
+  "date": "2026-08-08",
+  "host": "Mac Studio M2 Ultra 192 GB",
+  "llama_server_version": "1 (a731805ce)",
+  "models": {
+    "mimo": {
+      "decode_tps_mean": 23.17678441147943,
+      "decode_tps_samples": [
+        23.171606382474152,
+        23.17859688363765,
+        23.180149968326496
+      ],
+      "decode_tps_stdev": 0.003715912296895162,
+      "label": "MiMo-V2.5 UD-Q3_K_M",
+      "prefill_tps": 293.34541264424274,
+      "prefill_wall_s": 170.42954833299999,
+      "prompt_tokens": 49970,
+      "wired_after_gib": 135.5859832763672,
+      "wired_before_gib": 134.69578552246094
+    },
+    "minimax": {
+      "decode_tps_mean": 8.770475936121393,
+      "decode_tps_samples": [
+        8.778643754406467,
+        8.771583577841225,
+        8.761200476116487
+      ],
+      "decode_tps_stdev": 0.007164130187261765,
+      "label": "MiniMax M2.7 UD-Q4_K_M",
+      "prefill_tps": 119.72813336540581,
+      "prefill_wall_s": 417.718960791,
+      "prompt_tokens": 49994,
+      "wired_after_gib": 143.11354064941406,
+      "wired_before_gib": 142.2568817138672
+    },
+    "qwen3": {
+      "decode_tps_mean": 5.111056920138149,
+      "decode_tps_samples": [
+        5.1113617985604325,
+        5.111414459360901,
+        5.110394502493113
+      ],
+      "decode_tps_stdev": 0.0004688931237979775,
+      "label": "Qwen3-235B-A22B Q4_K_M",
+      "prefill_tps": 59.39218717872936,
+      "prefill_wall_s": 841.434304417,
+      "prompt_tokens": 49970,
+      "wired_after_gib": 142.70411682128906,
+      "wired_before_gib": 141.8008270263672
+    }
+  },
+  "ratios": {
+    "mimo_vs_minimax_decode": 2.6425914146831357,
+    "mimo_vs_minimax_prefill": 2.4500959331668812,
+    "mimo_vs_qwen_decode": 4.53463633327194,
+    "mimo_vs_qwen_prefill": 4.939124598349546,
+    "minimax_vs_qwen_decode": 1.7159808769815719,
+    "minimax_vs_qwen_prefill": 2.015890288820431
+  }
+}
