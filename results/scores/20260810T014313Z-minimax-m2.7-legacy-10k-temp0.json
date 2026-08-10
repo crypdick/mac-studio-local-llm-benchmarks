@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "run_id": "20260810T014313Z-minimax-m2.7-legacy-10k-temp0",
+  "suite_sha256": "b0375e05af3eaee786ed1f1b84854909e80356007d8e1bb0eb1ff46d61b51420",
+  "reviewer": "blind-human",
+  "scored_at": "2026-08-09T23:00:00-07:00",
+  "tasks": [
+    {
+      "task": "incident",
+      "score": 9,
+      "maximum": 12,
+      "criteria": [
+        2,
+        1,
+        2,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "task": "concurrency",
+      "score": 10,
+      "maximum": 12,
+      "criteria": [
+        2,
+        2,
+        1,
+        2,
+        2,
+        1
+      ]
+    },
+    {
+      "task": "migration",
+      "score": 4,
+      "maximum": 12,
+      "criteria": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "task": "quantum",
+      "score": 11,
+      "maximum": 12,
+      "criteria": [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    }
+  ]
+}

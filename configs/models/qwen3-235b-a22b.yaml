@@ -1,0 +1,40 @@
+schema_version: 1
+key: qwen3-235b-a22b
+label: Qwen3-235B-A22B Q4_K_M
+alias: qwen3-235b-q4
+weights:
+  path_env: QWEN3_MODEL
+  quant: Q4_K_M
+  source_url: https://huggingface.co/unsloth/Qwen3-235B-A22B-GGUF
+  source_revision: 09e11417ffdc30c1c63d0296a40fd8fde0abb180
+server:
+  context_size: 65536
+  parallel: 1
+  cache_type_k: q8_0
+  cache_type_v: q8_0
+  flash_attention: true
+  batch_size: 2048
+  ubatch_size: 2048
+  gpu_layers: 999
+  cache_ram_mib: 8192
+  ctx_checkpoints: 32
+  slot_prompt_similarity: 0.10
+  request_timeout_s: 7200
+  health_timeout_s: 300
+sampling:
+  temperature: 0.6
+  top_p: 0.95
+  top_k: 20
+  min_p: 0.0
+  seed: 42
+sampling_source_url: https://huggingface.co/Qwen/Qwen3-235B-A22B
+profiles:
+  - name: fast
+    max_tokens: 8192
+    reasoning_budget: 4096
+  - name: balanced
+    max_tokens: 16384
+    reasoning_budget: 10000
+  - name: deep
+    max_tokens: 32768
+    reasoning_budget: 24000

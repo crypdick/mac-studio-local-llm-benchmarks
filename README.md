@@ -1,79 +1,125 @@
 # Mac Studio local LLM benchmarks
 
-Local inference measurements from an Apple M2 Ultra Mac Studio with 192 GB
-unified memory. Tests cover long-context prefill/decode throughput and blinded
-real-world prompt quality.
+Production-shaped local inference measurements from an Apple M2 Ultra Mac Studio
+with 192 GB unified memory. Every point is backed by a committed metrics artifact;
+full prompts, reasoning, answers, and API timing records live in revision-pinned
+GitHub Gists referenced by that artifact.
 
-## Results
+## Agentic quality and runtime
 
-### Real-world prompts, 10K reasoning budget
+![Agentic quality versus runtime](charts/agentic-quality-vs-runtime.svg)
 
-Four tasks: payment incident response, asyncio concurrency repair, zero-downtime
-PostgreSQL migration, and operational quantum-mechanics explanation. Each task
-has six criteria scored 0–2.
+Current points are imported from the original 10K-reasoning run. They used
+temperature zero and remain useful historical controls, but they are not the new
+production profiles. Each imported artifact records its missing provenance rather
+than inventing values.
 
-| Model | Quant | Score | Mean generation | Natural finishes |
+| Model | Quant | Score | Four-task runtime | Weighted decode |
 |---|---|---:|---:|---:|
-| DeepSeek-V4-Flash-0731 | UD-Q8_K_XL | **42/48** | 6.58 tok/s | 4/4 |
-| MiMo-V2.5 | UD-Q3_K_M | 36/48 | **35.72 tok/s** | 4/4 |
-| MiniMax M2.7 | UD-Q4_K_M | 34/48 | 28.86 tok/s | 4/4 |
-| Qwen3-235B-A22B | Q4_K_M | 32/48 | 18.53 tok/s | 3/4 |
+| DeepSeek-V4-Flash-0731 | UD-Q8_K_XL | **42/48** | 112.9 min | 6.46 tok/s |
+| MiMo-V2.5 | UD-Q3_K_M | 36/48 | **21.0 min** | **35.42 tok/s** |
+| MiniMax M2.7 | UD-Q4_K_M | 34/48 | 25.6 min | 27.64 tok/s |
+| Qwen3-235B-A22B | Q4_K_M | 32/48 | 36.2 min | 16.19 tok/s |
 
-DeepSeek won prompt quality. MiMo remained best for interactive latency.
-DeepSeek's generated asyncio patch passed all six supplied tests.
+## Data contract
 
-Full prompts, rubrics, delivered answers, and scorecards live under
-[`results/agentic-10k`](results/agentic-10k/). Separate API reasoning fields are
-excluded; reasoning that a model exposed as its delivered answer is retained.
+One benchmark profile produces two small committed records:
 
-### 50K prefill and decode
+- `results/runs/<run-id>.json`: immutable machine metrics and provenance.
+- `results/scores/<run-id>.json`: human rubric scores, joined by `run_id`.
 
-| Model | Quant | Prefill | Decode at 50K |
-|---|---|---:|---:|
-| MiMo-V2.5 | UD-Q3_K_M | **293.35 tok/s** | **23.18 tok/s** |
-| DeepSeek-V4-Flash-0731 | UD-Q8_K_XL | 170.04 tok/s | 3.16 tok/s |
-| MiniMax M2.7 | UD-Q4_K_M | 119.73 tok/s | 8.77 tok/s |
-| Qwen3-235B-A22B | Q4_K_M | 59.39 tok/s | 5.11 tok/s |
+Run metrics contain:
 
-DeepSeek prefill is strong, but its 50K decode is slowest in this set.
+- resolved model, server, sampler, and reasoning-profile configuration;
+- source revision, quantization, every GGUF shard size and SHA-256;
+- host hardware/OS, runner commit/dirty state, and llama.cpp version;
+- task-suite hash, timestamps, success/finish state, tokens, cache use, wall time,
+  prefill/decode timings, weighted throughput, and observed server RSS;
+- full-trace SHA-256 plus Gist ID, revision, and immutable revision URL;
+- explicit limitations for recovered legacy runs.
 
-Cross-model caveat: Qwen, MiniMax, and MiMo used Ollama's llama-server build
-`a731805ce` with a deterministic text prompt. DeepSeek required upstream
-llama.cpp commit `74ce157` and was measured with native `llama-bench` synthetic
-tokens. Results are directional until every model is rerun with one binary and
-harness.
+This makes charts disposable views. Adding a model means adding its config and new
+run artifacts; existing models do not rerun. `scripts/render_chart.py` currently
+renders quality against task runtime, with raw points and no smoothing. Other
+charts can consume the same JSON.
 
-Machine-readable summaries live under
-[`results/prefix-decode`](results/prefix-decode/).
+## Model configs
 
-## Reproduce
+Each model owns its production settings under [`configs/models`](configs/models):
 
-Agentic runner:
+| Model | Sampling |
+|---|---|
+| DeepSeek-V4-Flash | `temperature=1.0`, `top_p=1.0` |
+| MiMo-V2.5 | `temperature=1.0`, `top_p=0.95` |
+| MiniMax M2.7 | `temperature=1.0`, `top_p=0.95`, `top_k=40` |
+| Qwen3-235B-A22B thinking | `temperature=0.6`, `top_p=0.95`, `top_k=20`, `min_p=0` |
+
+Each config also declares `fast`, `balanced`, and `deep` reasoning profiles. The
+profile is part of every metrics artifact, so chart curves can compare real
+operating points rather than repeated identical requests.
+
+## Run
+
+Set llama.cpp and model paths on the Mac Studio:
 
 ```bash
 export LLAMA_SERVER=/path/to/llama-server
 export DEEPSEEK_V4_MODEL=/path/to/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf
-
-uv run --script scripts/agentic_prompt_ab.py \
-  --models deepseek-v4-flash \
-  --tasks incident,concurrency,migration,quantum \
-  --ctx-size 32768 \
-  --max-tokens 16384 \
-  --reasoning-budget 10000
+export MIMO_MODEL=/path/to/MiMo-V2.5-UD-Q3_K_M-00001-of-N.gguf
+export MINIMAX_MODEL=/path/to/MiniMax-M2.7-UD-Q4_K_M-00001-of-N.gguf
+export QWEN3_MODEL=/path/to/Qwen3-235B-A22B-Q4_K_M-00001-of-N.gguf
 ```
 
-DeepSeek prefill:
+Validate the full matrix without loading weights:
 
 ```bash
-llama-bench -m "$DEEPSEEK_V4_MODEL" \
-  -p 50000 -n 0 -r 1 --no-warmup \
-  -b 2048 -ub 2048 -ctk q8_0 -ctv q8_0 -ngl 999 -fa on
+uv run --script scripts/benchmark.py configs/models/*.yaml --dry-run
 ```
 
-DeepSeek decode at 50K depth:
+Run one profile for every model:
 
 ```bash
-llama-bench -m "$DEEPSEEK_V4_MODEL" \
-  -p 0 -n 64 -d 50000 -r 3 --no-warmup \
-  -b 2048 -ub 2048 -ctk q8_0 -ctv q8_0 -ngl 999 -fa on
+uv run --script scripts/benchmark.py \
+  configs/models/*.yaml \
+  --profiles balanced
 ```
+
+The runner hashes weights, runs all four tasks, publishes one public Gist per
+model/profile, then writes `results/runs/<run-id>.json`. If Gist publication
+fails, recoverable trace and draft metrics remain under `.benchmark-work/`; no
+incomplete metrics file is added to `results/runs/`.
+
+Production runs refuse uncommitted changes under `scripts/` or `configs/` so the
+recorded runner commit identifies executable code. `--allow-dirty` exists only
+for development.
+
+`--no-publish-gists` exists for local development only. Do not commit those run
+artifacts because they lack immutable trace pointers.
+
+## Score and render
+
+Each local run directory contains `score-template.json`. Score the delivered
+answers, add `reviewer` and `scored_at`, replace each null criterion with 0–2,
+include each task's `score` and `maximum`, then commit it as
+`results/scores/<run-id>.json`.
+
+Regenerate chart:
+
+```bash
+uv run --script scripts/render_chart.py
+```
+
+Validate configs, schemas, Gist joins, and chart rendering:
+
+```bash
+uv run --with 'pydantic>=2.12,<3' --with 'pyyaml>=6,<7' \
+  python -m unittest discover -s tests
+```
+
+## Prefix/decode history
+
+Existing 50K measurements remain under
+[`results/prefix-decode`](results/prefix-decode). They predate the per-run schema:
+Qwen, MiniMax, and MiMo used llama-server build `a731805ce`; DeepSeek required
+upstream llama.cpp commit `74ce157` and native `llama-bench`. Treat cross-model
+ratios as directional until captured through one current harness.

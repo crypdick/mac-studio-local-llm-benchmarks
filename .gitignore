@@ -8,4 +8,5 @@ raw-reasoning/
 .ruff_cache/
 .new-feature/
 .worktrees/
+.benchmark-work/
 *.local.toml
