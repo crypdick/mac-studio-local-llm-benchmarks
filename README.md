@@ -22,9 +22,9 @@ has six criteria scored 0–2.
 DeepSeek won prompt quality. MiMo remained best for interactive latency.
 DeepSeek's generated asyncio patch passed all six supplied tests.
 
-Full prompts, rubrics, final answers, and scorecards live under
-[`results/agentic-10k`](results/agentic-10k/). Raw hidden reasoning traces are
-excluded.
+Full prompts, rubrics, delivered answers, and scorecards live under
+[`results/agentic-10k`](results/agentic-10k/). Separate API reasoning fields are
+excluded; reasoning that a model exposed as its delivered answer is retained.
 
 ### 50K prefill and decode
 

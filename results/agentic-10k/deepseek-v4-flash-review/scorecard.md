@@ -33,4 +33,4 @@ latency-insensitive work; keep MiMo as the interactive default.
 - Server RSS during the 32K run: 158,504,000 KiB, approximately 151.2 GiB.
 - macOS reported 17% system memory free while inference was active.
 - All four responses finished naturally; no output-limit truncation.
-- Published artifacts retain final answers and scorecard; raw reasoning traces are excluded.
+- Published artifacts exclude separate API reasoning fields.

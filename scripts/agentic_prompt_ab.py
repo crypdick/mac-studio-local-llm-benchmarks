@@ -901,14 +901,6 @@ def main() -> None:
         max_tokens=args.max_tokens,
         reasoning_budget=args.reasoning_budget,
     )
-    for model in plan.models:
-        if not model.model_path.is_file():
-            raise FileNotFoundError(model.model_path)
-
-    blind_map = ensure_assignments(config, plan)
-    if args.unblind:
-        print(blind_map.model_dump_json(indent=2))
-        return
     if args.dry_run:
         print(
             json.dumps(
@@ -923,6 +915,14 @@ def main() -> None:
                 indent=2,
             )
         )
+        return
+    for model in plan.models:
+        if not model.model_path.is_file():
+            raise FileNotFoundError(model.model_path)
+
+    blind_map = ensure_assignments(config, plan)
+    if args.unblind:
+        print(blind_map.model_dump_json(indent=2))
         return
     if not args.bundle_only:
         run_evaluation(config, plan, blind_map)

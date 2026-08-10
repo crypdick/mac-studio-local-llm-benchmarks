@@ -45,7 +45,7 @@ executable verification matter more.
 ## Artifacts
 
 - Runner: [`scripts/agentic_prompt_ab.py`](../../../scripts/agentic_prompt_ab.py)
-- Raw reasoning traces are excluded from the published dataset.
+- Separate API reasoning fields are excluded; reasoning exposed as a delivered answer is retained.
 - Blind scorecard: `review/scorecard-blind.md`
 
 The blind map was opened only after the scorecard had been written and copied into
