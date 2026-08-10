@@ -1,0 +1,39 @@
+schema_version: 1
+key: minimax-m2.7
+label: MiniMax M2.7 UD-Q4_K_M
+alias: minimax-m2.7-q4
+weights:
+  path_env: MINIMAX_MODEL
+  quant: UD-Q4_K_M
+  source_url: https://huggingface.co/unsloth/MiniMax-M2.7-GGUF
+  source_revision: d2a05ccf69491b03db0cc40b335aec14bdaf7198
+server:
+  context_size: 65536
+  parallel: 1
+  cache_type_k: q8_0
+  cache_type_v: q8_0
+  flash_attention: true
+  batch_size: 2048
+  ubatch_size: 2048
+  gpu_layers: 999
+  cache_ram_mib: 8192
+  ctx_checkpoints: 32
+  slot_prompt_similarity: 0.10
+  request_timeout_s: 7200
+  health_timeout_s: 300
+sampling:
+  temperature: 1.0
+  top_p: 0.95
+  top_k: 40
+  seed: 42
+sampling_source_url: https://huggingface.co/MiniMaxAI/MiniMax-M2.7
+profiles:
+  - name: fast
+    max_tokens: 8192
+    reasoning_budget: 4096
+  - name: balanced
+    max_tokens: 16384
+    reasoning_budget: 10000
+  - name: deep
+    max_tokens: 32768
+    reasoning_budget: 24000

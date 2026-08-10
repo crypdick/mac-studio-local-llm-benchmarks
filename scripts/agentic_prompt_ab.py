@@ -43,6 +43,16 @@ validation, rollback, and any material uncertainty.
 """
 
 
+class SamplingConfig(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    temperature: float = 0.0
+    top_p: float = 1.0
+    top_k: int | None = None
+    min_p: float | None = None
+    seed: int = 42
+
+
 class ModelSpec(BaseModel):
     model_config = ConfigDict(frozen=True)
 
@@ -51,6 +61,7 @@ class ModelSpec(BaseModel):
     model_path: Path
     alias: str
     extra_server_args: tuple[str, ...] = ()
+    sampling: SamplingConfig = SamplingConfig()
 
 
 class TaskSpec(BaseModel):
@@ -79,6 +90,16 @@ class EvalConfig(BaseModel):
     reasoning_budget: int = 10000
     request_timeout_s: int = 7200
     health_timeout_s: int = 180
+    parallel: int = 1
+    cache_type_k: str = "q8_0"
+    cache_type_v: str = "q8_0"
+    flash_attention: bool = True
+    batch_size: int = 2048
+    ubatch_size: int = 2048
+    gpu_layers: int = 999
+    cache_ram_mib: int = 0
+    ctx_checkpoints: int = 0
+    slot_prompt_similarity: float = 0.10
 
     @model_validator(mode="after")
     def validate_token_budgets(self) -> Self:
@@ -120,8 +141,11 @@ class ChatRequest(BaseModel):
     messages: tuple[ChatMessage, ...]
     stream: bool = False
     max_tokens: int
-    temperature: float = 0.0
-    seed: int = 42
+    temperature: float
+    top_p: float
+    top_k: int | None = None
+    min_p: float | None = None
+    seed: int
 
 
 class UsageDetails(BaseModel):
@@ -190,6 +214,7 @@ class RunResult(BaseModel):
     reasoning: str = ""
     usage: Usage | None = None
     timings: Timings | None = None
+    response: ChatResponse | None = None
     error: str | None = None
 
 
@@ -578,17 +603,19 @@ def server_command(
         "--ctx-size",
         str(config.ctx_size),
         "--parallel",
-        "1",
+        str(config.parallel),
         "--cache-type-k",
-        "q8_0",
+        config.cache_type_k,
         "--cache-type-v",
-        "q8_0",
+        config.cache_type_v,
         "--flash-attn",
-        "on",
+        "on" if config.flash_attention else "off",
         "--batch-size",
-        "2048",
+        str(config.batch_size),
         "--ubatch-size",
-        "2048",
+        str(config.ubatch_size),
+        "--gpu-layers",
+        str(config.gpu_layers),
         "--predict",
         str(config.max_tokens),
         "--reasoning",
@@ -601,11 +628,11 @@ def server_command(
         "--slot-save-path",
         str(slot_dir),
         "--cache-ram",
-        "0",
+        str(config.cache_ram_mib),
         "--ctx-checkpoints",
-        "0",
+        str(config.ctx_checkpoints),
         "--slot-prompt-similarity",
-        "0.10",
+        str(config.slot_prompt_similarity),
         "--log-verbosity",
         "2",
         *model.extra_server_args,
@@ -689,8 +716,13 @@ def run_chat(
             ChatMessage(role="user", content=task.prompt),
         ),
         max_tokens=config.max_tokens,
+        temperature=model.sampling.temperature,
+        top_p=model.sampling.top_p,
+        top_k=model.sampling.top_k,
+        min_p=model.sampling.min_p,
+        seed=model.sampling.seed,
     )
-    body = request.model_dump_json().encode("utf-8")
+    body = request.model_dump_json(exclude_none=True).encode("utf-8")
     http_request = urllib.request.Request(
         f"http://127.0.0.1:{config.port}/v1/chat/completions",
         data=body,
@@ -737,6 +769,7 @@ def execute_task(
             reasoning=choice.message.reasoning_content or "",
             usage=response.usage,
             timings=response.timings,
+            response=response,
         )
     except Exception as exc:  # noqa: BLE001 - preserve failures as eval artifacts
         return RunResult(

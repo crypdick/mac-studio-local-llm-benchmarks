@@ -1,0 +1,38 @@
+schema_version: 1
+key: deepseek-v4-flash
+label: DeepSeek-V4-Flash-0731 UD-Q8_K_XL
+alias: deepseek-v4-flash-0731-q8
+weights:
+  path_env: DEEPSEEK_V4_MODEL
+  quant: UD-Q8_K_XL
+  source_url: https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF
+  source_revision: fbbb5b93fb787c21338159b0af3318bb3f4d9768
+server:
+  context_size: 65536
+  parallel: 1
+  cache_type_k: q8_0
+  cache_type_v: q8_0
+  flash_attention: true
+  batch_size: 2048
+  ubatch_size: 2048
+  gpu_layers: 999
+  cache_ram_mib: 8192
+  ctx_checkpoints: 32
+  slot_prompt_similarity: 0.10
+  request_timeout_s: 14400
+  health_timeout_s: 600
+sampling:
+  temperature: 1.0
+  top_p: 1.0
+  seed: 42
+sampling_source_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash
+profiles:
+  - name: fast
+    max_tokens: 8192
+    reasoning_budget: 4096
+  - name: balanced
+    max_tokens: 16384
+    reasoning_budget: 10000
+  - name: deep
+    max_tokens: 32768
+    reasoning_budget: 24000
