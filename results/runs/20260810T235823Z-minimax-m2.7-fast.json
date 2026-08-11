@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "run_id": "20260810T235823Z-minimax-m2.7-fast",
+  "benchmark": "agentic-real-world-v1",
+  "provenance": "native",
+  "limitations": [],
+  "status": "completed",
+  "error": null,
+  "suite_sha256": "b0375e05af3eaee786ed1f1b84854909e80356007d8e1bb0eb1ff46d61b51420",
+  "started_at": "2026-08-10T23:58:23.334281+00:00",
+  "finished_at": "2026-08-11T00:11:41.083468+00:00",
+  "model_key": "minimax-m2.7",
+  "model_label": "MiniMax M2.7 UD-Q4_K_M",
+  "profile": {
+    "name": "fast",
+    "max_tokens": 8192,
+    "reasoning_budget": 4096
+  },
+  "config_source_sha256": "37a7f94e9d355e93daef4f1faab901a68cdfaa959ac85fcc8779f8d1f6300397",
+  "resolved_config_sha256": "688db347bc2712d3fc823808879efbb218cbf29ca6566c6cb817c20cbd18b7cc",
+  "resolved_config": {
+    "schema_version": 1,
+    "key": "minimax-m2.7",
+    "label": "MiniMax M2.7 UD-Q4_K_M",
+    "alias": "minimax-m2.7-q4",
+    "weights": {
+      "path_env": "MINIMAX_MODEL",
+      "quant": "UD-Q4_K_M",
+      "source_url": "https://huggingface.co/unsloth/MiniMax-M2.7-GGUF",
+      "source_revision": "d2a05ccf69491b03db0cc40b335aec14bdaf7198"
+    },
+    "server": {
+      "context_size": 65536,
+      "parallel": 1,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "flash_attention": true,
+      "batch_size": 2048,
+      "ubatch_size": 2048,
+      "gpu_layers": 999,
+      "cache_ram_mib": 8192,
+      "ctx_checkpoints": 32,
+      "slot_prompt_similarity": 0.1,
+      "request_timeout_s": 7200,
+      "health_timeout_s": 300,
+      "extra_args": []
+    },
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 40,
+      "min_p": null,
+      "seed": 42
+    },
+    "sampling_source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
+    "profiles": [
+      {
+        "name": "fast",
+        "max_tokens": 8192,
+        "reasoning_budget": 4096
+      },
+      {
+        "name": "balanced",
+        "max_tokens": 16384,
+        "reasoning_budget": 10000
+      },
+      {
+        "name": "deep",
+        "max_tokens": 32768,
+        "reasoning_budget": 24000
+      }
+    ]
+  },
+  "model_identity": {
+    "source_url": "https://huggingface.co/unsloth/MiniMax-M2.7-GGUF",
+    "source_revision": "d2a05ccf69491b03db0cc40b335aec14bdaf7198",
+    "quant": "UD-Q4_K_M",
+    "files": [
+      {
+        "name": "MiniMax-M2.7-UD-Q4_K_M-00001-of-00004.gguf",
+        "bytes": 8237856,
+        "sha256": "92986e39a0c0b5f12c2c9b6a811dad59e3317caaf1b7ad5c7f0d7d12abc4a6e8"
+      },
+      {
+        "name": "MiniMax-M2.7-UD-Q4_K_M-00002-of-00004.gguf",
+        "bytes": 49744949792,
+        "sha256": "425e6827c5c62ff11d56d99dae144524b0bfb655b51d50bac287e4a581518e46"
+      },
+      {
+        "name": "MiniMax-M2.7-UD-Q4_K_M-00003-of-00004.gguf",
+        "bytes": 49993557088,
+        "sha256": "27cfd98b49138aae1f30f4681a0a1123f38150b5d054a2f33fd2c8be85ff1fc5"
+      },
+      {
+        "name": "MiniMax-M2.7-UD-Q4_K_M-00004-of-00004.gguf",
+        "bytes": 40423160768,
+        "sha256": "73882cea9908fb8e84b3dbd5d58c75bdbe187e243aeabc93d2d63fa175322eee"
+      }
+    ],
+    "aggregate_sha256": "a6dc339d4d845f710abfb5b8f92268e1c749eb82a794d25fac073f51fe739b5e"
+  },
+  "host": {
+    "hostname": "RicardoacStudio",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "macos_version": "26.6.1",
+    "hardware_model": "Mac14,14",
+    "memory_bytes": 206158430208
+  },
+  "software": {
+    "runner_commit": "3771980f4583f14f3801985c26745dce766059d6",
+    "runner_dirty": false,
+    "llama_server": "llama-server",
+    "llama_server_version": "unknown"
+  },
+  "tasks": [
+    {
+      "task": "incident",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 224.63910025000223,
+      "prompt_tokens": 784,
+      "completion_tokens": 7122,
+      "cached_tokens": 0,
+      "prompt_ms": 1524.968,
+      "prompt_tps": 514.1091485198377,
+      "decode_ms": 223086.871,
+      "decode_tps": 31.924783238364576,
+      "error": null
+    },
+    {
+      "task": "concurrency",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 224.63710133300629,
+      "prompt_tokens": 564,
+      "completion_tokens": 7207,
+      "cached_tokens": 91,
+      "prompt_ms": 1135.706,
+      "prompt_tps": 416.4810258993085,
+      "decode_ms": 223408.768,
+      "decode_tps": 32.25925313728062,
+      "error": null
+    },
+    {
+      "task": "migration",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 221.46990637501585,
+      "prompt_tokens": 415,
+      "completion_tokens": 7180,
+      "cached_tokens": 90,
+      "prompt_ms": 961.579,
+      "prompt_tps": 337.9857505207581,
+      "decode_ms": 220416.405,
+      "decode_tps": 32.57470785806529,
+      "error": null
+    },
+    {
+      "task": "quantum",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 118.2983144170139,
+      "prompt_tokens": 442,
+      "completion_tokens": 4161,
+      "cached_tokens": 90,
+      "prompt_ms": 973.388,
+      "prompt_tps": 361.62352525406106,
+      "decode_ms": 117236.235,
+      "decode_tps": 35.49243968812202,
+      "error": null
+    }
+  ],
+  "aggregate": {
+    "load_s": 8.027989499998512,
+    "task_wall_s": 789.0444223750383,
+    "total_wall_s": 799.9695200829883,
+    "successful_tasks": 4,
+    "natural_finishes": 4,
+    "prompt_tokens": 2205,
+    "completion_tokens": 25670,
+    "prompt_tps": 420.8335681573039,
+    "decode_tps": 32.736155504589206,
+    "server_rss_peak_gib": 141.84771728515625
+  },
+  "trace": {
+    "sha256": "9578c99d422960466f9089feca9c3674bbf56166e6baec2929d9162f9abde0b1",
+    "bytes": 259302,
+    "gist_id": "43423b4422d7d749142bf63cc0cf762b",
+    "gist_url": "https://gist.github.com/crypdick/43423b4422d7d749142bf63cc0cf762b",
+    "gist_revision": "e814ceded5267b478746c6a86288aaa877915a43",
+    "gist_revision_url": "https://gist.github.com/crypdick/43423b4422d7d749142bf63cc0cf762b/e814ceded5267b478746c6a86288aaa877915a43"
+  }
+}

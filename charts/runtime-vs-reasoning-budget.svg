@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620">
+<rect width="100%" height="100%" fill="#fff"/>
+<style>text{font-family:system-ui,-apple-system,sans-serif}.axis{fill:#475569;font-size:13px}.label{fill:#0f172a;font-size:12px}.title{fill:#0f172a;font-size:24px;font-weight:600}</style>
+<text class="title" x="90" y="34">Runtime vs reasoning budget</text>
+<text class="axis" x="90" y="54">Production sampling; fast 4.1K, balanced 10K, deep 24K; n=1; no smoothing</text>
+<line x1="90" y1="540.0" x2="800" y2="540.0" stroke="#e2e8f0"/>
+<text class="axis" x="78" y="544.0" text-anchor="end">0</text>
+<line x1="90" y1="444.0" x2="800" y2="444.0" stroke="#e2e8f0"/>
+<text class="axis" x="78" y="448.0" text-anchor="end">53.2</text>
+<line x1="90" y1="348.0" x2="800" y2="348.0" stroke="#e2e8f0"/>
+<text class="axis" x="78" y="352.0" text-anchor="end">106.4</text>
+<line x1="90" y1="252.0" x2="800" y2="252.0" stroke="#e2e8f0"/>
+<text class="axis" x="78" y="256.0" text-anchor="end">159.6</text>
+<line x1="90" y1="156.0" x2="800" y2="156.0" stroke="#e2e8f0"/>
+<text class="axis" x="78" y="160.0" text-anchor="end">212.8</text>
+<line x1="90" y1="60.0" x2="800" y2="60.0" stroke="#e2e8f0"/>
+<text class="axis" x="78" y="64.0" text-anchor="end">266</text>
+<line x1="202.2" y1="60" x2="202.2" y2="540" stroke="#f1f5f9"/>
+<text class="axis" x="202.2" y="564" text-anchor="middle">4.1K</text>
+<line x1="363.9" y1="60" x2="363.9" y2="540" stroke="#f1f5f9"/>
+<text class="axis" x="363.9" y="564" text-anchor="middle">10K</text>
+<line x1="747.4" y1="60" x2="747.4" y2="540" stroke="#f1f5f9"/>
+<text class="axis" x="747.4" y="564" text-anchor="middle">24K</text>
+<line x1="90" y1="540" x2="800" y2="540" stroke="#64748b"/>
+<line x1="90" y1="60" x2="90" y2="540" stroke="#64748b"/>
+<text class="axis" x="445.0" y="600" text-anchor="middle">Reasoning budget (tokens)</text>
+<text class="axis" transform="translate(24 300.0) rotate(-90)" text-anchor="middle">Four-task runtime (minutes)</text>
+<polyline points="202.2,435.1 363.9,319.5 747.4,95.6" fill="none" stroke="#2563eb" stroke-width="2"/>
+<circle cx="202.2" cy="435.1" r="6" fill="#2563eb"><title>DeepSeek-V4-Flash-0731 UD-Q8_K_XL / fast: Four-task runtime (minutes) 58.1; Reasoning budget (tokens) 4096.0</title></circle>
+<circle cx="363.9" cy="319.5" r="6" fill="#2563eb"><title>DeepSeek-V4-Flash-0731 UD-Q8_K_XL / balanced: Four-task runtime (minutes) 122.2; Reasoning budget (tokens) 10000.0</title></circle>
+<circle cx="747.4" cy="95.6" r="6" fill="#2563eb"><title>DeepSeek-V4-Flash-0731 UD-Q8_K_XL / deep: Four-task runtime (minutes) 246.3; Reasoning budget (tokens) 24000.0</title></circle>
+<circle cx="825" cy="80" r="6" fill="#2563eb"/>
+<text class="label" x="839" y="84">DeepSeek-V4-Flash-0731 UD-Q8_K_XL</text>
+<polyline points="202.2,521.0 363.9,501.0 747.4,467.5" fill="none" stroke="#dc2626" stroke-width="2"/>
+<circle cx="202.2" cy="521.0" r="6" fill="#dc2626"><title>MiMo-V2.5 UD-Q3_K_M / fast: Four-task runtime (minutes) 10.5; Reasoning budget (tokens) 4096.0</title></circle>
+<circle cx="363.9" cy="501.0" r="6" fill="#dc2626"><title>MiMo-V2.5 UD-Q3_K_M / balanced: Four-task runtime (minutes) 21.6; Reasoning budget (tokens) 10000.0</title></circle>
+<circle cx="747.4" cy="467.5" r="6" fill="#dc2626"><title>MiMo-V2.5 UD-Q3_K_M / deep: Four-task runtime (minutes) 40.2; Reasoning budget (tokens) 24000.0</title></circle>
+<circle cx="825" cy="122" r="6" fill="#dc2626"/>
+<text class="label" x="839" y="126">MiMo-V2.5 UD-Q3_K_M</text>
+<polyline points="202.2,516.3 363.9,507.3 747.4,483.5" fill="none" stroke="#16a34a" stroke-width="2"/>
+<circle cx="202.2" cy="516.3" r="6" fill="#16a34a"><title>MiniMax M2.7 UD-Q4_K_M / fast: Four-task runtime (minutes) 13.2; Reasoning budget (tokens) 4096.0</title></circle>
+<circle cx="363.9" cy="507.3" r="6" fill="#16a34a"><title>MiniMax M2.7 UD-Q4_K_M / balanced: Four-task runtime (minutes) 18.1; Reasoning budget (tokens) 10000.0</title></circle>
+<circle cx="747.4" cy="483.5" r="6" fill="#16a34a"><title>MiniMax M2.7 UD-Q4_K_M / deep: Four-task runtime (minutes) 31.3; Reasoning budget (tokens) 24000.0</title></circle>
+<circle cx="825" cy="164" r="6" fill="#16a34a"/>
+<text class="label" x="839" y="168">MiniMax M2.7 UD-Q4_K_M</text>
+<polyline points="202.2,516.7 363.9,508.0 747.4,508.0" fill="none" stroke="#9333ea" stroke-width="2"/>
+<circle cx="202.2" cy="516.7" r="6" fill="#9333ea"><title>Qwen3-235B-A22B Q4_K_M / fast: Four-task runtime (minutes) 12.9; Reasoning budget (tokens) 4096.0</title></circle>
+<circle cx="363.9" cy="508.0" r="6" fill="#9333ea"><title>Qwen3-235B-A22B Q4_K_M / balanced: Four-task runtime (minutes) 17.7; Reasoning budget (tokens) 10000.0</title></circle>
+<circle cx="747.4" cy="508.0" r="6" fill="#9333ea"><title>Qwen3-235B-A22B Q4_K_M / deep: Four-task runtime (minutes) 17.8; Reasoning budget (tokens) 24000.0</title></circle>
+<circle cx="825" cy="206" r="6" fill="#9333ea"/>
+<text class="label" x="839" y="210">Qwen3-235B-A22B Q4_K_M</text>
+</svg>
