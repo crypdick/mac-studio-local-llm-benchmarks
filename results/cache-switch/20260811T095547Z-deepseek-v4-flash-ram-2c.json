@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "run_id": "20260811T095547Z-deepseek-v4-flash-ram-2c",
+  "benchmark": "cache-switch-v1",
+  "status": "completed",
+  "error": null,
+  "limitations": [
+    "One raw suite point (n=1); no confidence interval.",
+    "Client-observed SSE TTFT includes local HTTP overhead.",
+    "Serialized slot bytes approximate RAM prompt-cache working-set bytes."
+  ],
+  "started_at": "2026-08-11T09:54:45.732565+00:00",
+  "finished_at": "2026-08-11T09:55:49.181328+00:00",
+  "suite": {
+    "schema_version": 1,
+    "ram_prompt_tokens": 16384,
+    "ram_conversation_levels": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "disk_prompt_token_levels": [
+      8192,
+      16384,
+      32768,
+      49152
+    ],
+    "completion_tokens": 1
+  },
+  "suite_sha256": "f823e10b148f4adc20eb6c6a33645ed3db1d9f8f68a32ef75ababd2167de128b",
+  "model_key": "deepseek-v4-flash",
+  "model_label": "DeepSeek-V4-Flash-0731 UD-Q8_K_XL",
+  "config_source_sha256": "911fab0bb36d8c4378462f8e0334a88483f94158920f5ecd453a1833cc4d317c",
+  "resolved_config_sha256": "a3905e57612ad519b1204bcc9a902881993d8378aba3cf724c03ef733ae401e0",
+  "resolved_config": {
+    "schema_version": 1,
+    "key": "deepseek-v4-flash",
+    "label": "DeepSeek-V4-Flash-0731 UD-Q8_K_XL",
+    "alias": "deepseek-v4-flash-0731-q8",
+    "weights": {
+      "path_env": "DEEPSEEK_V4_MODEL",
+      "quant": "UD-Q8_K_XL",
+      "source_url": "https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF",
+      "source_revision": "fbbb5b93fb787c21338159b0af3318bb3f4d9768"
+    },
+    "server": {
+      "context_size": 65536,
+      "parallel": 1,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "flash_attention": true,
+      "batch_size": 2048,
+      "ubatch_size": 2048,
+      "gpu_layers": 999,
+      "cache_ram_mib": 8192,
+      "ctx_checkpoints": 32,
+      "slot_prompt_similarity": 0.1,
+      "request_timeout_s": 14400,
+      "health_timeout_s": 600,
+      "extra_args": []
+    },
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 1.0,
+      "top_k": null,
+      "min_p": null,
+      "seed": 42
+    },
+    "sampling_source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+    "profiles": [
+      {
+        "name": "fast",
+        "max_tokens": 8192,
+        "reasoning_budget": 4096
+      },
+      {
+        "name": "balanced",
+        "max_tokens": 16384,
+        "reasoning_budget": 10000
+      },
+      {
+        "name": "deep",
+        "max_tokens": 32768,
+        "reasoning_budget": 24000
+      }
+    ]
+  },
+  "model_identity": {
+    "source_url": "https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF",
+    "source_revision": "fbbb5b93fb787c21338159b0af3318bb3f4d9768",
+    "quant": "UD-Q8_K_XL",
+    "files": [
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf",
+        "bytes": 5257408,
+        "sha256": "d13ce8f90855547bdaebe7312f531a1f2c4f822178d3103951f27fe884395cfa"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00002-of-00005.gguf",
+        "bytes": 49215492960,
+        "sha256": "3da2f2443063f83635986f9b67fa7e8e3d03c53b81a9a08d2007936612423610"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00003-of-00005.gguf",
+        "bytes": 49700372160,
+        "sha256": "7d622a7760d359ec9257b3493ad531e3bf0bfbe6f6533267e16e6dde8153ddce"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00004-of-00005.gguf",
+        "bytes": 49466495968,
+        "sha256": "6ed2bce452214f156b85e7c5f7d4fc242a3052f409d1b90a61422f60669c2de3"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00005-of-00005.gguf",
+        "bytes": 13481997024,
+        "sha256": "ea4727af4888fdca0fff796ec81ac2f3ebb43c310b2feb4798f41d82744b42ea"
+      }
+    ],
+    "aggregate_sha256": "e6472dfbd82afd83392c67d140d43fff522bd263cc6914b226c90f2e5bd9ed6e"
+  },
+  "host": {
+    "hostname": "RicardoacStudio",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "macos_version": "26.6.1",
+    "hardware_model": "Mac14,14",
+    "memory_bytes": 206158430208
+  },
+  "software": {
+    "runner_commit": "abe88808c47fbef98fa7fc42800acd245c7a0fed",
+    "runner_dirty": false,
+    "llama_server": "llama-server",
+    "llama_server_version": "unknown"
+  },
+  "point": {
+    "mode": "ram",
+    "conversations": 2,
+    "prompt_tokens": 16384,
+    "estimated_working_set_bytes": 150513912,
+    "cache_budget_bytes": 8589934592,
+    "estimated_working_set_ratio": 0.017522125504910946
+  },
+  "measurements": [
+    {
+      "phase": "fill",
+      "conversation": 1,
+      "request": {
+        "prompt": {
+          "conversation": 1,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16363,
+          "sha256": "53f8dcaff374cb18e601f1c65ec96dd3bb7e35da021dc81792f30bf3aa10f6ee"
+        },
+        "started_at": "2026-08-11T09:54:45.765631+00:00",
+        "ttft_ms": 56756.76341599319,
+        "total_ms": 56758.095790981315,
+        "cache_tokens": 0,
+        "prompt_tokens_evaluated": 16363,
+        "prompt_ms": 56715.471,
+        "prompt_tps": 288.5103431478159,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-1.bin",
+        "n_saved": 16363,
+        "n_written": 75256956,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 25.00412499648519,
+        "timings": {
+          "save_ms": 24.367,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 0,
+      "request": {
+        "prompt": {
+          "conversation": 0,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "2626da57d628d4ea14141b19f8ae8ee5e4208ec0375822d3eb2c5e799186818b"
+        },
+        "started_at": "2026-08-11T09:55:42.580724+00:00",
+        "ttft_ms": 2290.664166008355,
+        "total_ms": 2291.413666011067,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2244.747,
+        "prompt_tps": 7.127752036198289,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 1,
+      "request": {
+        "prompt": {
+          "conversation": 1,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "2d3ca8c160a58e7794042a4ea03b4bbe237ec849d517c40e95ec0a1e504ba6e9"
+        },
+        "started_at": "2026-08-11T09:55:44.904641+00:00",
+        "ttft_ms": 2287.87891700631,
+        "total_ms": 2288.49854200962,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2245.544,
+        "prompt_tps": 7.12522221786792,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    }
+  ],
+  "aggregate": {
+    "ttft_mean_ms": 2289.2715415073326,
+    "ttft_max_ms": 2290.664166008355,
+    "total_mean_ms": 2289.9561040103436,
+    "cached_fraction_mean": 0.9990229007633588,
+    "restore_mean_ms": null,
+    "end_to_end_ttft_mean_ms": 2289.2715415073326,
+    "server_rss_peak_gib": 151.65904235839844
+  },
+  "trace": {
+    "sha256": "4d44accab8dc1688268d30911cfed39e059caec8db6655b01f28d50fbef9220c",
+    "bytes": 207221,
+    "gist_id": "7756dc0b26120c50d821c28d6587fd21",
+    "gist_url": "https://gist.github.com/crypdick/7756dc0b26120c50d821c28d6587fd21",
+    "gist_revision": "1ae40879285c15e3063036da6b22a4aa404d16af",
+    "gist_revision_url": "https://gist.github.com/crypdick/7756dc0b26120c50d821c28d6587fd21/1ae40879285c15e3063036da6b22a4aa404d16af"
+  }
+}

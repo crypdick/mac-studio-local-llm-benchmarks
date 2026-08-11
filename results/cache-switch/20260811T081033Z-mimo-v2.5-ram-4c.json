@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "run_id": "20260811T081033Z-mimo-v2.5-ram-4c",
+  "benchmark": "cache-switch-v1",
+  "status": "completed",
+  "error": null,
+  "limitations": [
+    "One raw suite point (n=1); no confidence interval.",
+    "Client-observed SSE TTFT includes local HTTP overhead.",
+    "Serialized slot bytes approximate RAM prompt-cache working-set bytes."
+  ],
+  "started_at": "2026-08-11T08:09:14.528182+00:00",
+  "finished_at": "2026-08-11T08:10:35.300677+00:00",
+  "suite": {
+    "schema_version": 1,
+    "ram_prompt_tokens": 16384,
+    "ram_conversation_levels": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "disk_prompt_token_levels": [
+      8192,
+      16384,
+      32768,
+      49152
+    ],
+    "completion_tokens": 1
+  },
+  "suite_sha256": "f823e10b148f4adc20eb6c6a33645ed3db1d9f8f68a32ef75ababd2167de128b",
+  "model_key": "mimo-v2.5",
+  "model_label": "MiMo-V2.5 UD-Q3_K_M",
+  "config_source_sha256": "f9db5fada0ef8d8587724004f08e68b8078de006149d0600ad7ccd414e07ec21",
+  "resolved_config_sha256": "21142d70b774af3a1c8436acd691812b4d1da4fa53df3ed4048dca1abe4c53b6",
+  "resolved_config": {
+    "schema_version": 1,
+    "key": "mimo-v2.5",
+    "label": "MiMo-V2.5 UD-Q3_K_M",
+    "alias": "mimo-v2.5-q3",
+    "weights": {
+      "path_env": "MIMO_MODEL",
+      "quant": "UD-Q3_K_M",
+      "source_url": "https://huggingface.co/unsloth/MiMo-V2.5-GGUF",
+      "source_revision": "f7aff7868d5f79da58b505f84626d7a807393c37"
+    },
+    "server": {
+      "context_size": 65536,
+      "parallel": 1,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "flash_attention": true,
+      "batch_size": 2048,
+      "ubatch_size": 2048,
+      "gpu_layers": 999,
+      "cache_ram_mib": 8192,
+      "ctx_checkpoints": 32,
+      "slot_prompt_similarity": 0.1,
+      "request_timeout_s": 7200,
+      "health_timeout_s": 300,
+      "extra_args": []
+    },
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": null,
+      "min_p": null,
+      "seed": 42
+    },
+    "sampling_source_url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5",
+    "profiles": [
+      {
+        "name": "fast",
+        "max_tokens": 8192,
+        "reasoning_budget": 4096
+      },
+      {
+        "name": "balanced",
+        "max_tokens": 16384,
+        "reasoning_budget": 10000
+      },
+      {
+        "name": "deep",
+        "max_tokens": 32768,
+        "reasoning_budget": 24000
+      }
+    ]
+  },
+  "model_identity": {
+    "source_url": "https://huggingface.co/unsloth/MiMo-V2.5-GGUF",
+    "source_revision": "f7aff7868d5f79da58b505f84626d7a807393c37",
+    "quant": "UD-Q3_K_M",
+    "files": [
+      {
+        "name": "MiMo-V2.5-UD-Q3_K_M-00001-of-00004.gguf",
+        "bytes": 5953760,
+        "sha256": "d109d6fbd8a63adc586769aa00917f882ef8a3ac49a38afc1c81cdd8f9163b8d"
+      },
+      {
+        "name": "MiMo-V2.5-UD-Q3_K_M-00002-of-00004.gguf",
+        "bytes": 48908106912,
+        "sha256": "539a28cd91a5745c3fb5ce8ca941a8d83bc8b619860e43c358c59042c3561ff3"
+      },
+      {
+        "name": "MiMo-V2.5-UD-Q3_K_M-00003-of-00004.gguf",
+        "bytes": 49110646080,
+        "sha256": "bc725413e9ce3f734596f53eaee8350fbae688b8d538a412a09890c66799e0d6"
+      },
+      {
+        "name": "MiMo-V2.5-UD-Q3_K_M-00004-of-00004.gguf",
+        "bytes": 42006735584,
+        "sha256": "38379bf2565b4d4f49f809d9b0e5d719db74e2e8d4647ff3c2c0ed9c2999e54f"
+      }
+    ],
+    "aggregate_sha256": "ab424bf463f2d5963a4b426606c71d869cbdbfb574abfe6c239f421e313ae2ae"
+  },
+  "host": {
+    "hostname": "RicardoacStudio",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "macos_version": "26.6.1",
+    "hardware_model": "Mac14,14",
+    "memory_bytes": 206158430208
+  },
+  "software": {
+    "runner_commit": "abe88808c47fbef98fa7fc42800acd245c7a0fed",
+    "runner_dirty": false,
+    "llama_server": "llama-server",
+    "llama_server_version": "unknown"
+  },
+  "point": {
+    "mode": "ram",
+    "conversations": 4,
+    "prompt_tokens": 16384,
+    "estimated_working_set_bytes": 856993840,
+    "cache_budget_bytes": 8589934592,
+    "estimated_working_set_ratio": 0.09976721368730068
+  },
+  "measurements": [
+    {
+      "phase": "fill",
+      "conversation": 2,
+      "request": {
+        "prompt": {
+          "conversation": 2,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16373,
+          "sha256": "35d344fee419aaa41eac55421627af5f8b9ad55afbe954f8a187482ba2568ad1"
+        },
+        "started_at": "2026-08-11T08:09:14.539247+00:00",
+        "ttft_ms": 38648.60041698557,
+        "total_ms": 38649.3692919903,
+        "cache_tokens": 0,
+        "prompt_tokens_evaluated": 16373,
+        "prompt_ms": 38621.17,
+        "prompt_tps": 423.938477265189,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-2.bin",
+        "n_saved": 16373,
+        "n_written": 214248460,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 75.20162500441074,
+        "timings": {
+          "save_ms": 74.461,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "fill",
+      "conversation": 3,
+      "request": {
+        "prompt": {
+          "conversation": 3,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16373,
+          "sha256": "fdbfa1f09fb4adc668fa68f1b99b48b1d808cdc725dc39d9793fbc927da3beb3"
+        },
+        "started_at": "2026-08-11T08:09:53.277275+00:00",
+        "ttft_ms": 38630.15650000307,
+        "total_ms": 38630.71833300637,
+        "cache_tokens": 0,
+        "prompt_tokens_evaluated": 16373,
+        "prompt_ms": 38612.354,
+        "prompt_tps": 424.0352711984356,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-3.bin",
+        "n_saved": 16373,
+        "n_written": 214248460,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 77.09220898686908,
+        "timings": {
+          "save_ms": 76.164,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 0,
+      "request": {
+        "prompt": {
+          "conversation": 0,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16385,
+          "sha256": "e32e1afec600c3a846b40be280ef537357823386f40aeee5f00b7116f431cc0f"
+        },
+        "started_at": "2026-08-11T08:10:31.997922+00:00",
+        "ttft_ms": 315.7678749994375,
+        "total_ms": 316.314625000814,
+        "cache_tokens": 16370,
+        "prompt_tokens_evaluated": 15,
+        "prompt_ms": 279.096,
+        "prompt_tps": 53.744947974890366,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 1,
+      "request": {
+        "prompt": {
+          "conversation": 1,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16385,
+          "sha256": "8a6be1050980e33756caabd670a5c6c7b829d03993ad9ad1fb61e56f91b5949e"
+        },
+        "started_at": "2026-08-11T08:10:32.325168+00:00",
+        "ttft_ms": 341.61008399678394,
+        "total_ms": 342.14241697918624,
+        "cache_tokens": 16367,
+        "prompt_tokens_evaluated": 18,
+        "prompt_ms": 316.726,
+        "prompt_tps": 56.83145684282313,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 2,
+      "request": {
+        "prompt": {
+          "conversation": 2,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16385,
+          "sha256": "974f2e0aedcb004563cd70e05900647d5b5ac5f328d4ed3ac8c5e2be82204a47"
+        },
+        "started_at": "2026-08-11T08:10:32.678027+00:00",
+        "ttft_ms": 328.15862499410287,
+        "total_ms": 328.68850001250394,
+        "cache_tokens": 16368,
+        "prompt_tokens_evaluated": 17,
+        "prompt_ms": 303.898,
+        "prompt_tps": 55.93982191393164,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 3,
+      "request": {
+        "prompt": {
+          "conversation": 3,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16385,
+          "sha256": "04295ad19d89885e065f793e99bfeb667e4d30a5aed0d7462dae554c621b016f"
+        },
+        "started_at": "2026-08-11T08:10:33.017416+00:00",
+        "ttft_ms": 340.17270800541155,
+        "total_ms": 340.7404999888968,
+        "cache_tokens": 16368,
+        "prompt_tokens_evaluated": 17,
+        "prompt_ms": 303.664,
+        "prompt_tps": 55.982928499920966,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    }
+  ],
+  "aggregate": {
+    "ttft_mean_ms": 331.42732299893396,
+    "ttft_max_ms": 341.61008399678394,
+    "total_mean_ms": 331.97151049535023,
+    "cached_fraction_mean": 0.9989777235276167,
+    "restore_mean_ms": null,
+    "end_to_end_ttft_mean_ms": 331.42732299893396,
+    "server_rss_peak_gib": 131.92214965820312
+  },
+  "trace": {
+    "sha256": "cb3b7e4cfb967b078c08308385975f999e139e52841f0c28f36e0dbd72ab6ea3",
+    "bytes": 426869,
+    "gist_id": "012552ebc0828f0e811d9e6136aec20d",
+    "gist_url": "https://gist.github.com/crypdick/012552ebc0828f0e811d9e6136aec20d",
+    "gist_revision": "86294d7e412a3c77970b1c91496d018684dc10be",
+    "gist_revision_url": "https://gist.github.com/crypdick/012552ebc0828f0e811d9e6136aec20d/86294d7e412a3c77970b1c91496d018684dc10be"
+  }
+}

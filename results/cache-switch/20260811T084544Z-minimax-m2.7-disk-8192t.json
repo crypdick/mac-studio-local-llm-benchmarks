@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "run_id": "20260811T084544Z-minimax-m2.7-disk-8192t",
+  "benchmark": "cache-switch-v1",
+  "status": "completed",
+  "error": null,
+  "limitations": [
+    "One raw suite point (n=1); no confidence interval.",
+    "Client-observed SSE TTFT includes local HTTP overhead.",
+    "Explicit slot restore is not automatic prompt-cache disk spill."
+  ],
+  "started_at": "2026-08-11T08:45:23.597892+00:00",
+  "finished_at": "2026-08-11T08:45:46.259608+00:00",
+  "suite": {
+    "schema_version": 1,
+    "ram_prompt_tokens": 16384,
+    "ram_conversation_levels": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "disk_prompt_token_levels": [
+      8192,
+      16384,
+      32768,
+      49152
+    ],
+    "completion_tokens": 1
+  },
+  "suite_sha256": "f823e10b148f4adc20eb6c6a33645ed3db1d9f8f68a32ef75ababd2167de128b",
+  "model_key": "minimax-m2.7",
+  "model_label": "MiniMax M2.7 UD-Q4_K_M",
+  "config_source_sha256": "37a7f94e9d355e93daef4f1faab901a68cdfaa959ac85fcc8779f8d1f6300397",
+  "resolved_config_sha256": "688db347bc2712d3fc823808879efbb218cbf29ca6566c6cb817c20cbd18b7cc",
+  "resolved_config": {
+    "schema_version": 1,
+    "key": "minimax-m2.7",
+    "label": "MiniMax M2.7 UD-Q4_K_M",
+    "alias": "minimax-m2.7-q4",
+    "weights": {
+      "path_env": "MINIMAX_MODEL",
+      "quant": "UD-Q4_K_M",
+      "source_url": "https://huggingface.co/unsloth/MiniMax-M2.7-GGUF",
+      "source_revision": "d2a05ccf69491b03db0cc40b335aec14bdaf7198"
+    },
+    "server": {
+      "context_size": 65536,
+      "parallel": 1,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "flash_attention": true,
+      "batch_size": 2048,
+      "ubatch_size": 2048,
+      "gpu_layers": 999,
+      "cache_ram_mib": 8192,
+      "ctx_checkpoints": 32,
+      "slot_prompt_similarity": 0.1,
+      "request_timeout_s": 7200,
+      "health_timeout_s": 300,
+      "extra_args": []
+    },
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 40,
+      "min_p": null,
+      "seed": 42
+    },
+    "sampling_source_url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
+    "profiles": [
+      {
+        "name": "fast",
+        "max_tokens": 8192,
+        "reasoning_budget": 4096
+      },
+      {
+        "name": "balanced",
+        "max_tokens": 16384,
+        "reasoning_budget": 10000
+      },
+      {
+        "name": "deep",
+        "max_tokens": 32768,
+        "reasoning_budget": 24000
+      }
+    ]
+  },
+  "model_identity": {
+    "source_url": "https://huggingface.co/unsloth/MiniMax-M2.7-GGUF",
+    "source_revision": "d2a05ccf69491b03db0cc40b335aec14bdaf7198",
+    "quant": "UD-Q4_K_M",
+    "files": [
+      {
+        "name": "MiniMax-M2.7-UD-Q4_K_M-00001-of-00004.gguf",
+        "bytes": 8237856,
+        "sha256": "92986e39a0c0b5f12c2c9b6a811dad59e3317caaf1b7ad5c7f0d7d12abc4a6e8"
+      },
+      {
+        "name": "MiniMax-M2.7-UD-Q4_K_M-00002-of-00004.gguf",
+        "bytes": 49744949792,
+        "sha256": "425e6827c5c62ff11d56d99dae144524b0bfb655b51d50bac287e4a581518e46"
+      },
+      {
+        "name": "MiniMax-M2.7-UD-Q4_K_M-00003-of-00004.gguf",
+        "bytes": 49993557088,
+        "sha256": "27cfd98b49138aae1f30f4681a0a1123f38150b5d054a2f33fd2c8be85ff1fc5"
+      },
+      {
+        "name": "MiniMax-M2.7-UD-Q4_K_M-00004-of-00004.gguf",
+        "bytes": 40423160768,
+        "sha256": "73882cea9908fb8e84b3dbd5d58c75bdbe187e243aeabc93d2d63fa175322eee"
+      }
+    ],
+    "aggregate_sha256": "a6dc339d4d845f710abfb5b8f92268e1c749eb82a794d25fac073f51fe739b5e"
+  },
+  "host": {
+    "hostname": "RicardoacStudio",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "macos_version": "26.6.1",
+    "hardware_model": "Mac14,14",
+    "memory_bytes": 206158430208
+  },
+  "software": {
+    "runner_commit": "abe88808c47fbef98fa7fc42800acd245c7a0fed",
+    "runner_dirty": false,
+    "llama_server": "llama-server",
+    "llama_server_version": "unknown"
+  },
+  "point": {
+    "mode": "disk",
+    "conversations": 1,
+    "prompt_tokens": 8192,
+    "estimated_working_set_bytes": 1103307772,
+    "cache_budget_bytes": 0,
+    "estimated_working_set_ratio": null
+  },
+  "measurements": [
+    {
+      "phase": "fill",
+      "conversation": 0,
+      "request": {
+        "prompt": {
+          "conversation": 1000,
+          "prefix_target_tokens": 8192,
+          "measured_tokens": 8177,
+          "sha256": "3c520f351bd591529f4f02ec8a842e0599bfe07caca62848367cff054aa5f469"
+        },
+        "started_at": "2026-08-11T08:45:23.646827+00:00",
+        "ttft_ms": 20246.064500010107,
+        "total_ms": 20246.617166994838,
+        "cache_tokens": 0,
+        "prompt_tokens_evaluated": 8177,
+        "prompt_ms": 20222.22,
+        "prompt_tps": 404.3571872919986,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "disk-8192.bin",
+        "n_saved": 8177,
+        "n_written": 1103307772,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 148.31591700203717,
+        "timings": {
+          "save_ms": 147.585,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "disk_restore",
+      "conversation": 0,
+      "request": {
+        "prompt": {
+          "conversation": 1000,
+          "prefix_target_tokens": 8192,
+          "measured_tokens": 8190,
+          "sha256": "ed970c395b73d6dd617ce92685bcf4185d70a0b8256ec234bc04997d41f267b1"
+        },
+        "started_at": "2026-08-11T08:45:44.150007+00:00",
+        "ttft_ms": 341.05633400031365,
+        "total_ms": 341.39233399764635,
+        "cache_tokens": 8176,
+        "prompt_tokens_evaluated": 14,
+        "prompt_ms": 324.019,
+        "prompt_tps": 43.20734277928146,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": {
+        "id_slot": 0,
+        "filename": "disk-8192.bin",
+        "n_saved": null,
+        "n_written": null,
+        "n_restored": 8177,
+        "n_read": 1103307772,
+        "wall_ms": 90.2727080101613,
+        "timings": {
+          "save_ms": null,
+          "restore_ms": 89.659
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "ttft_mean_ms": 341.05633400031365,
+    "ttft_max_ms": 341.05633400031365,
+    "total_mean_ms": 341.39233399764635,
+    "cached_fraction_mean": 0.9982905982905983,
+    "restore_mean_ms": 90.2727080101613,
+    "end_to_end_ttft_mean_ms": 431.32904201047495,
+    "server_rss_peak_gib": 139.0176544189453
+  },
+  "trace": {
+    "sha256": "81f581fbc1a8d12c06274a1b9bb7f42f4cab950ad884a1810f7ee79463327c2e",
+    "bytes": 82309,
+    "gist_id": "ed93e7b8cafd589f83d2bdaf19ae5080",
+    "gist_url": "https://gist.github.com/crypdick/ed93e7b8cafd589f83d2bdaf19ae5080",
+    "gist_revision": "0ce160d217dbfc159697eb7e82d68db07ecbf24a",
+    "gist_revision_url": "https://gist.github.com/crypdick/ed93e7b8cafd589f83d2bdaf19ae5080/0ce160d217dbfc159697eb7e82d68db07ecbf24a"
+  }
+}
