@@ -10,6 +10,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from benchmark import read_model_config, weight_paths  # noqa: E402
+from cache_switch import (  # noqa: E402
+    CachePoint,
+    CacheSwitchSuite,
+    MeasurementTrace,
+    PromptDescriptor,
+    RequestTrace,
+    SlotAction,
+    aggregate_point,
+    read_suite,
+)
 from render_chart import (  # noqa: E402
     Point,
     ScoreArtifact,
@@ -23,6 +33,66 @@ from render_chart import (  # noqa: E402
 
 
 class BenchmarkContractTest(unittest.TestCase):
+    def test_cache_switch_suite_defines_two_four_point_curves(self) -> None:
+        suite = read_suite(ROOT / "configs" / "cache-switch.yaml")
+        self.assertEqual((1, 2, 4, 8), suite.ram_conversation_levels)
+        self.assertEqual((8192, 16384, 32768, 49152), suite.disk_prompt_token_levels)
+
+    def test_cache_switch_rejects_repeated_curve_levels(self) -> None:
+        with self.assertRaises(ValueError):
+            CacheSwitchSuite(
+                ram_prompt_tokens=1024,
+                ram_conversation_levels=(1, 1),
+                disk_prompt_token_levels=(1024,),
+            )
+
+    def test_slot_response_accepts_server_payload_before_wall_clock_is_added(
+        self,
+    ) -> None:
+        response = SlotAction.model_validate({"id_slot": 0, "n_written": 1024})
+        self.assertEqual(0, response.wall_ms)
+
+    def test_cache_switch_aggregate_includes_disk_restore_in_ttft(self) -> None:
+        prompt = PromptDescriptor(
+            conversation=0,
+            prefix_target_tokens=1024,
+            measured_tokens=1000,
+            sha256="a" * 64,
+        )
+        request = RequestTrace(
+            prompt=prompt,
+            started_at="2026-08-11T00:00:00+00:00",
+            ttft_ms=20,
+            total_ms=30,
+            cache_tokens=1000,
+            prompt_tokens_evaluated=0,
+            prompt_ms=0,
+            prompt_tps=None,
+            decode_ms=10,
+            decode_tps=100,
+            events=(),
+        )
+        measurement = MeasurementTrace(
+            phase="disk_restore",
+            conversation=0,
+            request=request,
+            restore=SlotAction(id_slot=0, wall_ms=40),
+        )
+        aggregate = aggregate_point(
+            CachePoint(
+                mode="disk",
+                conversations=1,
+                prompt_tokens=1024,
+                estimated_working_set_bytes=100,
+                cache_budget_bytes=0,
+                estimated_working_set_ratio=None,
+            ),
+            (measurement,),
+            120,
+        )
+        self.assertEqual(60, aggregate.end_to_end_ttft_mean_ms)
+        self.assertEqual(1, aggregate.cached_fraction_mean)
+
     def test_all_model_configs_validate(self) -> None:
         configs = tuple(
             read_model_config(path)[0]
