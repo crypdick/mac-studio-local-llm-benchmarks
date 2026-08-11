@@ -84,7 +84,6 @@ class Point(BaseModel):
     profile: str
     minutes: float
     score_percent: float
-    provenance: str = "native"
 
 
 class ProfilePoint(BaseModel):
@@ -141,7 +140,6 @@ def join_points(
                 profile=run.profile.name,
                 minutes=run.aggregate.task_wall_s / 60,
                 score_percent=score.score * 100 / score.maximum,
-                provenance=run.provenance,
             )
         )
     return tuple(points)
@@ -158,9 +156,7 @@ def profile_points(runs: tuple[RunMetrics, ...]) -> tuple[ProfilePoint, ...]:
             decode_tps=float(run.aggregate.decode_tps),
         )
         for run in runs
-        if run.status == "completed"
-        and run.provenance == "native"
-        and run.aggregate.decode_tps is not None
+        if run.status == "completed" and run.aggregate.decode_tps is not None
     )
 
 
@@ -348,11 +344,10 @@ def main() -> None:
     args = parse_args()
     runs = load_runs(args.runs)
     points = join_points(runs, load_scores(args.scores))
-    production_points = tuple(point for point in points if point.provenance == "native")
     profiles = profile_points(runs)
     for output in (args.output, args.runtime_output, args.decode_output):
         output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(render_svg(production_points), encoding="utf-8")
+    args.output.write_text(render_svg(points), encoding="utf-8")
     args.runtime_output.write_text(
         render_profile_svg(profiles, "runtime"), encoding="utf-8"
     )
@@ -360,7 +355,7 @@ def main() -> None:
         render_profile_svg(profiles, "decode"), encoding="utf-8"
     )
     print(
-        f"wrote 3 charts from {len(production_points)} production scores "
+        f"wrote 3 charts from {len(points)} production scores "
         f"and {len(profiles)} profile runs"
     )
 
