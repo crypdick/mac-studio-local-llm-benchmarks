@@ -83,7 +83,7 @@ class BenchmarkContractTest(unittest.TestCase):
         self.assertIn("balanced", svg)
         self.assertIn("raw profile points (n=1); no smoothing", svg)
 
-    def test_profile_charts_use_native_runs(self) -> None:
+    def test_profile_charts_use_committed_runs(self) -> None:
         points = profile_points(load_runs(ROOT / "results" / "runs"))
         self.assertEqual(12, len(points))
         self.assertIn(
@@ -97,10 +97,9 @@ class BenchmarkContractTest(unittest.TestCase):
     def test_committed_style_artifacts_join_to_pinned_traces(self) -> None:
         runs = load_runs(ROOT / "results" / "runs")
         scores = load_scores(ROOT / "results" / "scores")
-        self.assertEqual(16, len(runs))
+        self.assertEqual(12, len(runs))
         points = join_points(runs, scores)
-        self.assertEqual(16, len(points))
-        self.assertEqual(12, sum(point.provenance == "native" for point in points))
+        self.assertEqual(12, len(points))
         self.assertTrue(
             all(
                 run.trace.gist_revision_url

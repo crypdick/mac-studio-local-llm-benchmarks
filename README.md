@@ -43,20 +43,6 @@ Models generated different token counts, and reasoning budget is a ceiling rathe
 than a quota. Scores come from one blind rubric review per answer (`n=1`), so these
 points rank these traces rather than estimate confidence intervals.
 
-## Legacy 10K controls
-
-These points are imported from the original 10K-reasoning run. They used
-temperature zero and remain useful historical controls, but they are not the new
-production profiles. Each imported artifact records its missing provenance rather
-than inventing values.
-
-| Model | Quant | Score | Four-task runtime | Weighted decode |
-|---|---|---:|---:|---:|
-| DeepSeek-V4-Flash-0731 | UD-Q8_K_XL | **42/48** | 112.9 min | 6.46 tok/s |
-| MiMo-V2.5 | UD-Q3_K_M | 36/48 | **21.0 min** | **35.42 tok/s** |
-| MiniMax M2.7 | UD-Q4_K_M | 34/48 | 25.6 min | 27.64 tok/s |
-| Qwen3-235B-A22B | Q4_K_M | 32/48 | 36.2 min | 16.19 tok/s |
-
 ## Data contract
 
 One benchmark profile produces two small committed records:
@@ -72,7 +58,7 @@ Run metrics contain:
 - task-suite hash, timestamps, success/finish state, tokens, cache use, wall time,
   prefill/decode timings, weighted throughput, and observed server RSS;
 - full-trace SHA-256 plus Gist ID, revision, and immutable revision URL;
-- explicit limitations for recovered legacy runs.
+- provenance for the model, runner, configuration, and trace.
 
 This makes charts disposable views. Adding a model means adding its config and new
 run artifacts; existing models do not rerun. `scripts/render_chart.py` renders
@@ -151,11 +137,3 @@ Validate configs, schemas, Gist joins, and chart rendering:
 uv run --with 'pydantic>=2.12,<3' --with 'pyyaml>=6,<7' \
   python -m unittest discover -s tests
 ```
-
-## Prefix/decode history
-
-Existing 50K measurements remain under
-[`results/prefix-decode`](results/prefix-decode). They predate the per-run schema:
-Qwen, MiniMax, and MiMo used llama-server build `a731805ce`; DeepSeek required
-upstream llama.cpp commit `74ce157` and native `llama-bench`. Treat cross-model
-ratios as directional until captured through one current harness.
