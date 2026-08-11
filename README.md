@@ -80,6 +80,37 @@ Each config also declares `fast`, `balanced`, and `deep` reasoning profiles. The
 profile is part of every metrics artifact, so chart curves can compare real
 operating points rather than repeated identical requests.
 
+## Cache switching
+
+`scripts/cache_switch.py` adds two artifact-first curves without mixing their
+semantics:
+
+- production RAM prompt-cache TTFT at 1, 2, 4, and 8 active 16K-token
+  conversations;
+- explicit disk-slot restore and end-to-end TTFT at 8K, 16K, 32K, and 49K
+  prompt tokens.
+
+llama.cpp does not automatically spill `--cache-ram` entries to disk. RAM-cache
+eviction falls back to prompt recomputation; `/slots/{id}?action=restore` is a
+separate explicit persistence path. Results therefore remain separate under
+`results/cache-switch/`. Every point contains raw per-conversation measurements,
+the resolved production model/server config, serialized slot bytes, model and
+host identity, effective cached-token fraction, and a revision-pinned Gist
+trace. A successful restore response is not counted as cache reuse: current
+llama.cpp builds can reprocess the full prompt for SWA or hybrid-memory models.
+
+Validate the 32-point matrix without loading weights:
+
+```bash
+uv run --script scripts/cache_switch.py configs/models/*.yaml --dry-run
+```
+
+Run it:
+
+```bash
+uv run --script scripts/cache_switch.py configs/models/*.yaml
+```
+
 ## Run
 
 Set llama.cpp and model paths on the Mac Studio:

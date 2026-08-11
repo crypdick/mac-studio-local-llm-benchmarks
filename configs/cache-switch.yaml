@@ -1,0 +1,5 @@
+schema_version: 1
+ram_prompt_tokens: 16384
+ram_conversation_levels: [1, 2, 4, 8]
+disk_prompt_token_levels: [8192, 16384, 32768, 49152]
+completion_tokens: 1
