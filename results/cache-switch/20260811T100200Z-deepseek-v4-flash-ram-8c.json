@@ -1,0 +1,487 @@
+{
+  "schema_version": 1,
+  "run_id": "20260811T100200Z-deepseek-v4-flash-ram-8c",
+  "benchmark": "cache-switch-v1",
+  "status": "completed",
+  "error": null,
+  "limitations": [
+    "One raw suite point (n=1); no confidence interval.",
+    "Client-observed SSE TTFT includes local HTTP overhead.",
+    "Serialized slot bytes approximate RAM prompt-cache working-set bytes."
+  ],
+  "started_at": "2026-08-11T09:57:54.596920+00:00",
+  "finished_at": "2026-08-11T10:02:03.153590+00:00",
+  "suite": {
+    "schema_version": 1,
+    "ram_prompt_tokens": 16384,
+    "ram_conversation_levels": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "disk_prompt_token_levels": [
+      8192,
+      16384,
+      32768,
+      49152
+    ],
+    "completion_tokens": 1
+  },
+  "suite_sha256": "f823e10b148f4adc20eb6c6a33645ed3db1d9f8f68a32ef75ababd2167de128b",
+  "model_key": "deepseek-v4-flash",
+  "model_label": "DeepSeek-V4-Flash-0731 UD-Q8_K_XL",
+  "config_source_sha256": "911fab0bb36d8c4378462f8e0334a88483f94158920f5ecd453a1833cc4d317c",
+  "resolved_config_sha256": "a3905e57612ad519b1204bcc9a902881993d8378aba3cf724c03ef733ae401e0",
+  "resolved_config": {
+    "schema_version": 1,
+    "key": "deepseek-v4-flash",
+    "label": "DeepSeek-V4-Flash-0731 UD-Q8_K_XL",
+    "alias": "deepseek-v4-flash-0731-q8",
+    "weights": {
+      "path_env": "DEEPSEEK_V4_MODEL",
+      "quant": "UD-Q8_K_XL",
+      "source_url": "https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF",
+      "source_revision": "fbbb5b93fb787c21338159b0af3318bb3f4d9768"
+    },
+    "server": {
+      "context_size": 65536,
+      "parallel": 1,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "flash_attention": true,
+      "batch_size": 2048,
+      "ubatch_size": 2048,
+      "gpu_layers": 999,
+      "cache_ram_mib": 8192,
+      "ctx_checkpoints": 32,
+      "slot_prompt_similarity": 0.1,
+      "request_timeout_s": 14400,
+      "health_timeout_s": 600,
+      "extra_args": []
+    },
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 1.0,
+      "top_k": null,
+      "min_p": null,
+      "seed": 42
+    },
+    "sampling_source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+    "profiles": [
+      {
+        "name": "fast",
+        "max_tokens": 8192,
+        "reasoning_budget": 4096
+      },
+      {
+        "name": "balanced",
+        "max_tokens": 16384,
+        "reasoning_budget": 10000
+      },
+      {
+        "name": "deep",
+        "max_tokens": 32768,
+        "reasoning_budget": 24000
+      }
+    ]
+  },
+  "model_identity": {
+    "source_url": "https://huggingface.co/unsloth/DeepSeek-V4-Flash-0731-GGUF",
+    "source_revision": "fbbb5b93fb787c21338159b0af3318bb3f4d9768",
+    "quant": "UD-Q8_K_XL",
+    "files": [
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf",
+        "bytes": 5257408,
+        "sha256": "d13ce8f90855547bdaebe7312f531a1f2c4f822178d3103951f27fe884395cfa"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00002-of-00005.gguf",
+        "bytes": 49215492960,
+        "sha256": "3da2f2443063f83635986f9b67fa7e8e3d03c53b81a9a08d2007936612423610"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00003-of-00005.gguf",
+        "bytes": 49700372160,
+        "sha256": "7d622a7760d359ec9257b3493ad531e3bf0bfbe6f6533267e16e6dde8153ddce"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00004-of-00005.gguf",
+        "bytes": 49466495968,
+        "sha256": "6ed2bce452214f156b85e7c5f7d4fc242a3052f409d1b90a61422f60669c2de3"
+      },
+      {
+        "name": "DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00005-of-00005.gguf",
+        "bytes": 13481997024,
+        "sha256": "ea4727af4888fdca0fff796ec81ac2f3ebb43c310b2feb4798f41d82744b42ea"
+      }
+    ],
+    "aggregate_sha256": "e6472dfbd82afd83392c67d140d43fff522bd263cc6914b226c90f2e5bd9ed6e"
+  },
+  "host": {
+    "hostname": "RicardoacStudio",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "macos_version": "26.6.1",
+    "hardware_model": "Mac14,14",
+    "memory_bytes": 206158430208
+  },
+  "software": {
+    "runner_commit": "abe88808c47fbef98fa7fc42800acd245c7a0fed",
+    "runner_dirty": false,
+    "llama_server": "llama-server",
+    "llama_server_version": "unknown"
+  },
+  "point": {
+    "mode": "ram",
+    "conversations": 8,
+    "prompt_tokens": 16384,
+    "estimated_working_set_bytes": 602055648,
+    "cache_budget_bytes": 8589934592,
+    "estimated_working_set_ratio": 0.07008850201964378
+  },
+  "measurements": [
+    {
+      "phase": "fill",
+      "conversation": 4,
+      "request": {
+        "prompt": {
+          "conversation": 4,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16363,
+          "sha256": "d9d73bcd761298aeafb3391ee56002c9aca22b8c02a431a9be5557cba313e8a2"
+        },
+        "started_at": "2026-08-11T09:57:54.629736+00:00",
+        "ttft_ms": 56814.670749998186,
+        "total_ms": 56815.34179102164,
+        "cache_tokens": 0,
+        "prompt_tokens_evaluated": 16363,
+        "prompt_ms": 56775.27,
+        "prompt_tps": 288.2064673580593,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-4.bin",
+        "n_saved": 16363,
+        "n_written": 75256956,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 25.684499996714294,
+        "timings": {
+          "save_ms": 24.841,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "fill",
+      "conversation": 5,
+      "request": {
+        "prompt": {
+          "conversation": 5,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16363,
+          "sha256": "efbcc8d77ba996d8b97dfe5389b8543cbc9ac4b1207d0a9c31cddf4b154d5158"
+        },
+        "started_at": "2026-08-11T09:58:51.503210+00:00",
+        "ttft_ms": 56782.69658298814,
+        "total_ms": 56783.41933299089,
+        "cache_tokens": 0,
+        "prompt_tokens_evaluated": 16363,
+        "prompt_ms": 56742.923,
+        "prompt_tps": 288.3707629936512,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-5.bin",
+        "n_saved": 16363,
+        "n_written": 75256956,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 22.334500012220815,
+        "timings": {
+          "save_ms": 21.511,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "fill",
+      "conversation": 6,
+      "request": {
+        "prompt": {
+          "conversation": 6,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16363,
+          "sha256": "2ab0788ac32ab64a0123aa587cce381e0d9c2a06bbc71963ba079b9bddd3397e"
+        },
+        "started_at": "2026-08-11T09:59:48.341197+00:00",
+        "ttft_ms": 56747.18029200449,
+        "total_ms": 56747.802124999,
+        "cache_tokens": 0,
+        "prompt_tokens_evaluated": 16363,
+        "prompt_ms": 56707.014,
+        "prompt_tps": 288.55337013512997,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-6.bin",
+        "n_saved": 16363,
+        "n_written": 75256956,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 15.212041995255277,
+        "timings": {
+          "save_ms": 14.542,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "fill",
+      "conversation": 7,
+      "request": {
+        "prompt": {
+          "conversation": 7,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16363,
+          "sha256": "528ae7e9662de9522aded1540d537b9336ba1662ae194662bcb68cb7eef15393"
+        },
+        "started_at": "2026-08-11T10:00:45.136502+00:00",
+        "ttft_ms": 56741.47708399687,
+        "total_ms": 56742.07820900483,
+        "cache_tokens": 0,
+        "prompt_tokens_evaluated": 16363,
+        "prompt_ms": 56701.28,
+        "prompt_tps": 288.58255051737814,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-7.bin",
+        "n_saved": 16363,
+        "n_written": 75256956,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 24.19962498242967,
+        "timings": {
+          "save_ms": 23.326,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 0,
+      "request": {
+        "prompt": {
+          "conversation": 0,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "5b825a369ab98b7bd74d5ee4a245dee983131623defad414c88ee722a18d3767"
+        },
+        "started_at": "2026-08-11T10:01:41.934322+00:00",
+        "ttft_ms": 2283.914667001227,
+        "total_ms": 2284.499874978792,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2237.063,
+        "prompt_tps": 7.152234872240969,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 1,
+      "request": {
+        "prompt": {
+          "conversation": 1,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "a74c80e458e2850e0dc28408c768947fa1c3d66a3dd73c86f6439912fd8ee049"
+        },
+        "started_at": "2026-08-11T10:01:44.250680+00:00",
+        "ttft_ms": 2290.2529999846593,
+        "total_ms": 2290.8550839929376,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2247.601,
+        "prompt_tps": 7.118701228554356,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 2,
+      "request": {
+        "prompt": {
+          "conversation": 2,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "e4a0dabeec34dd0dfcbfa3125497594c4ed686c07a7f05e4dad7b3728e544f01"
+        },
+        "started_at": "2026-08-11T10:01:46.573264+00:00",
+        "ttft_ms": 2285.9120419889223,
+        "total_ms": 2286.5307919855695,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2244.943,
+        "prompt_tps": 7.1271297311334845,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 3,
+      "request": {
+        "prompt": {
+          "conversation": 3,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "de50659a1cf9f0777151619a91a27966cd93a5e4ebd994c8f796a168a5d34bf1"
+        },
+        "started_at": "2026-08-11T10:01:48.891614+00:00",
+        "ttft_ms": 2273.8704580115154,
+        "total_ms": 2274.4997500267345,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2232.904,
+        "prompt_tps": 7.165556602522993,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 4,
+      "request": {
+        "prompt": {
+          "conversation": 4,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "273b224410fed0cc5011e86c11a3e0749300b25f40ea7096b631462a3e4cda58"
+        },
+        "started_at": "2026-08-11T10:01:51.198688+00:00",
+        "ttft_ms": 2293.1799170037266,
+        "total_ms": 2293.795959005365,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2251.401,
+        "prompt_tps": 7.106686014619342,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 5,
+      "request": {
+        "prompt": {
+          "conversation": 5,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "8a3bf8352823df5da92518c6847ebee7ba6777d1149dcd1d4c9a0376640b26e7"
+        },
+        "started_at": "2026-08-11T10:01:53.524606+00:00",
+        "ttft_ms": 2292.5050830235705,
+        "total_ms": 2293.1174999976065,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2246.413,
+        "prompt_tps": 7.122465904533138,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 6,
+      "request": {
+        "prompt": {
+          "conversation": 6,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "d5a7f02fc954d14f972d7d36b14e220ce251f5d4c5a3f7ce2808ff62dff9d6fc"
+        },
+        "started_at": "2026-08-11T10:01:55.850070+00:00",
+        "ttft_ms": 2285.2259170031175,
+        "total_ms": 2285.8387079904787,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2238.23,
+        "prompt_tps": 7.148505738909764,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 7,
+      "request": {
+        "prompt": {
+          "conversation": 7,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16375,
+          "sha256": "69fb425494e7ab453c59e99d36fdcc6b308c993d31b1309c107e6bfc04ceeae4"
+        },
+        "started_at": "2026-08-11T10:01:58.168274+00:00",
+        "ttft_ms": 2297.3856659955345,
+        "total_ms": 2297.9756660060957,
+        "cache_tokens": 16359,
+        "prompt_tokens_evaluated": 16,
+        "prompt_ms": 2250.908,
+        "prompt_tps": 7.10824254034372,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    }
+  ],
+  "aggregate": {
+    "ttft_mean_ms": 2287.780843751534,
+    "ttft_max_ms": 2297.3856659955345,
+    "total_mean_ms": 2288.3891667479475,
+    "cached_fraction_mean": 0.9990229007633588,
+    "restore_mean_ms": null,
+    "end_to_end_ttft_mean_ms": 2287.780843751534,
+    "server_rss_peak_gib": 152.54002380371094
+  },
+  "trace": {
+    "sha256": "e2203dcb8729a8934be45b67b57d52cbda5f122f44a26f1df0a08b59284fc342",
+    "bytes": 823754,
+    "gist_id": "856252c4e3bdead6ca9911d77943306c",
+    "gist_url": "https://gist.github.com/crypdick/856252c4e3bdead6ca9911d77943306c",
+    "gist_revision": "ecc39d0ae0acc14dd697288caf62ee862ea1428e",
+    "gist_revision_url": "https://gist.github.com/crypdick/856252c4e3bdead6ca9911d77943306c/ecc39d0ae0acc14dd697288caf62ee862ea1428e"
+  }
+}

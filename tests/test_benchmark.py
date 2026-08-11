@@ -23,10 +23,13 @@ from cache_switch import (  # noqa: E402
 from render_chart import (  # noqa: E402
     Point,
     ScoreArtifact,
+    cache_points,
     join_points,
+    load_cache_runs,
     load_runs,
     load_scores,
     profile_points,
+    render_cache_svg,
     render_profile_svg,
     render_svg,
 )
@@ -163,6 +166,15 @@ class BenchmarkContractTest(unittest.TestCase):
             "Decode throughput vs reasoning budget",
             render_profile_svg(points, "decode"),
         )
+
+    def test_cache_charts_use_all_committed_raw_points(self) -> None:
+        runs = load_cache_runs(ROOT / "results" / "cache-switch")
+        self.assertEqual(32, len(runs))
+        self.assertTrue(all(run.trace.gist_revision_url for run in runs))
+        points = cache_points(runs)
+        self.assertEqual(32, len(points))
+        self.assertIn("RAM cache switching TTFT", render_cache_svg(points, "ram"))
+        self.assertIn("Explicit disk restore + TTFT", render_cache_svg(points, "disk"))
 
     def test_committed_style_artifacts_join_to_pinned_traces(self) -> None:
         runs = load_runs(ROOT / "results" / "runs")

@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "run_id": "20260811T090601Z-qwen3-235b-a22b-ram-4c",
+  "benchmark": "cache-switch-v1",
+  "status": "completed",
+  "error": null,
+  "limitations": [
+    "One raw suite point (n=1); no confidence interval.",
+    "Client-observed SSE TTFT includes local HTTP overhead.",
+    "Serialized slot bytes approximate RAM prompt-cache working-set bytes."
+  ],
+  "started_at": "2026-08-11T09:02:07.438102+00:00",
+  "finished_at": "2026-08-11T09:06:03.360349+00:00",
+  "suite": {
+    "schema_version": 1,
+    "ram_prompt_tokens": 16384,
+    "ram_conversation_levels": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "disk_prompt_token_levels": [
+      8192,
+      16384,
+      32768,
+      49152
+    ],
+    "completion_tokens": 1
+  },
+  "suite_sha256": "f823e10b148f4adc20eb6c6a33645ed3db1d9f8f68a32ef75ababd2167de128b",
+  "model_key": "qwen3-235b-a22b",
+  "model_label": "Qwen3-235B-A22B Q4_K_M",
+  "config_source_sha256": "df2b1d1e415946c5377d5898f68687894a52e85e046f2991e0e5d8fb11d8b8f0",
+  "resolved_config_sha256": "7487b9b38aaf7c49464b33c5c3dbae9803f2cc461b6cde85d3757b6a1d37cc93",
+  "resolved_config": {
+    "schema_version": 1,
+    "key": "qwen3-235b-a22b",
+    "label": "Qwen3-235B-A22B Q4_K_M",
+    "alias": "qwen3-235b-q4",
+    "weights": {
+      "path_env": "QWEN3_MODEL",
+      "quant": "Q4_K_M",
+      "source_url": "https://huggingface.co/unsloth/Qwen3-235B-A22B-GGUF",
+      "source_revision": "09e11417ffdc30c1c63d0296a40fd8fde0abb180"
+    },
+    "server": {
+      "context_size": 65536,
+      "parallel": 1,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "flash_attention": true,
+      "batch_size": 2048,
+      "ubatch_size": 2048,
+      "gpu_layers": 999,
+      "cache_ram_mib": 8192,
+      "ctx_checkpoints": 32,
+      "slot_prompt_similarity": 0.1,
+      "request_timeout_s": 7200,
+      "health_timeout_s": 300,
+      "extra_args": []
+    },
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "min_p": 0.0,
+      "seed": 42
+    },
+    "sampling_source_url": "https://huggingface.co/Qwen/Qwen3-235B-A22B",
+    "profiles": [
+      {
+        "name": "fast",
+        "max_tokens": 8192,
+        "reasoning_budget": 4096
+      },
+      {
+        "name": "balanced",
+        "max_tokens": 16384,
+        "reasoning_budget": 10000
+      },
+      {
+        "name": "deep",
+        "max_tokens": 32768,
+        "reasoning_budget": 24000
+      }
+    ]
+  },
+  "model_identity": {
+    "source_url": "https://huggingface.co/unsloth/Qwen3-235B-A22B-GGUF",
+    "source_revision": "09e11417ffdc30c1c63d0296a40fd8fde0abb180",
+    "quant": "Q4_K_M",
+    "files": [
+      {
+        "name": "sha256-791d5d11998e006548d6b58c31756562ea61446ebc7d19686608402a797ecc82",
+        "bytes": 142154073664,
+        "sha256": "791d5d11998e006548d6b58c31756562ea61446ebc7d19686608402a797ecc82"
+      }
+    ],
+    "aggregate_sha256": "ab1a9f663c444a996fc04c1665473d72eb7f9ca2db5ba0df3d37a7b45f9664cc"
+  },
+  "host": {
+    "hostname": "RicardoacStudio",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "macos_version": "26.6.1",
+    "hardware_model": "Mac14,14",
+    "memory_bytes": 206158430208
+  },
+  "software": {
+    "runner_commit": "abe88808c47fbef98fa7fc42800acd245c7a0fed",
+    "runner_dirty": false,
+    "llama_server": "llama-server",
+    "llama_server_version": "unknown"
+  },
+  "point": {
+    "mode": "ram",
+    "conversations": 4,
+    "prompt_tokens": 16384,
+    "estimated_working_set_bytes": 6699054832,
+    "cache_budget_bytes": 8589934592,
+    "estimated_working_set_ratio": 0.7798726242035627
+  },
+  "measurements": [
+    {
+      "phase": "fill",
+      "conversation": 2,
+      "request": {
+        "prompt": {
+          "conversation": 2,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16373,
+          "sha256": "35d344fee419aaa41eac55421627af5f8b9ad55afbe954f8a187482ba2568ad1"
+        },
+        "started_at": "2026-08-11T09:02:07.450046+00:00",
+        "ttft_ms": 114917.26299998118,
+        "total_ms": 114917.95562498737,
+        "cache_tokens": 4,
+        "prompt_tokens_evaluated": 16369,
+        "prompt_ms": 114779.737,
+        "prompt_tps": 142.61228007518437,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-2.bin",
+        "n_saved": 16373,
+        "n_written": 1674763708,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 250.50862500211224,
+        "timings": {
+          "save_ms": 249.683,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "fill",
+      "conversation": 3,
+      "request": {
+        "prompt": {
+          "conversation": 3,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16373,
+          "sha256": "fdbfa1f09fb4adc668fa68f1b99b48b1d808cdc725dc39d9793fbc927da3beb3"
+        },
+        "started_at": "2026-08-11T09:04:02.630719+00:00",
+        "ttft_ms": 114905.06250000908,
+        "total_ms": 114905.82212500158,
+        "cache_tokens": 4,
+        "prompt_tokens_evaluated": 16369,
+        "prompt_ms": 114767.655,
+        "prompt_tps": 142.62729337808636,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": {
+        "id_slot": 0,
+        "filename": "ram-3.bin",
+        "n_saved": 16373,
+        "n_written": 1674763708,
+        "n_restored": null,
+        "n_read": null,
+        "wall_ms": 262.3835000267718,
+        "timings": {
+          "save_ms": 261.487,
+          "restore_ms": null
+        }
+      },
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 0,
+      "request": {
+        "prompt": {
+          "conversation": 0,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16385,
+          "sha256": "e32e1afec600c3a846b40be280ef537357823386f40aeee5f00b7116f431cc0f"
+        },
+        "started_at": "2026-08-11T09:05:57.810471+00:00",
+        "ttft_ms": 657.1684160153382,
+        "total_ms": 657.720999995945,
+        "cache_tokens": 16378,
+        "prompt_tokens_evaluated": 7,
+        "prompt_ms": 482.908,
+        "prompt_tps": 14.495514673602424,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 1,
+      "request": {
+        "prompt": {
+          "conversation": 1,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16385,
+          "sha256": "8a6be1050980e33756caabd670a5c6c7b829d03993ad9ad1fb61e56f91b5949e"
+        },
+        "started_at": "2026-08-11T09:05:58.479571+00:00",
+        "ttft_ms": 573.0100839864463,
+        "total_ms": 573.5647499968763,
+        "cache_tokens": 16378,
+        "prompt_tokens_evaluated": 7,
+        "prompt_ms": 479.263,
+        "prompt_tps": 14.605759259529737,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 2,
+      "request": {
+        "prompt": {
+          "conversation": 2,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16385,
+          "sha256": "974f2e0aedcb004563cd70e05900647d5b5ac5f328d4ed3ac8c5e2be82204a47"
+        },
+        "started_at": "2026-08-11T09:05:59.064257+00:00",
+        "ttft_ms": 955.2856670052279,
+        "total_ms": 955.8774170000106,
+        "cache_tokens": 16372,
+        "prompt_tokens_evaluated": 13,
+        "prompt_ms": 865.394,
+        "prompt_tps": 15.022059316334525,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    },
+    {
+      "phase": "ram_revisit",
+      "conversation": 3,
+      "request": {
+        "prompt": {
+          "conversation": 3,
+          "prefix_target_tokens": 16384,
+          "measured_tokens": 16385,
+          "sha256": "04295ad19d89885e065f793e99bfeb667e4d30a5aed0d7462dae554c621b016f"
+        },
+        "started_at": "2026-08-11T09:06:00.031204+00:00",
+        "ttft_ms": 1035.1321669877507,
+        "total_ms": 1035.7057919900399,
+        "cache_tokens": 16372,
+        "prompt_tokens_evaluated": 13,
+        "prompt_ms": 859.469,
+        "prompt_tps": 15.125618259646364,
+        "decode_ms": 0.001,
+        "decode_tps": 1000000.0
+      },
+      "save": null,
+      "restore": null
+    }
+  ],
+  "aggregate": {
+    "ttft_mean_ms": 805.1490834986907,
+    "ttft_max_ms": 1035.1321669877507,
+    "total_mean_ms": 805.717239745718,
+    "cached_fraction_mean": 0.9993896856881295,
+    "restore_mean_ms": null,
+    "end_to_end_ttft_mean_ms": 805.1490834986907,
+    "server_rss_peak_gib": 146.76873779296875
+  },
+  "trace": {
+    "sha256": "2623bd20be0ed40fddb132058f6b8c7c523cfc006f3c2af2749eca7dee1560a4",
+    "bytes": 424193,
+    "gist_id": "0d25ec21e3690337397c95d3f72fb9f1",
+    "gist_url": "https://gist.github.com/crypdick/0d25ec21e3690337397c95d3f72fb9f1",
+    "gist_revision": "757955e3fdd989018d3465e6da22cc40c2b884a9",
+    "gist_revision_url": "https://gist.github.com/crypdick/0d25ec21e3690337397c95d3f72fb9f1/757955e3fdd989018d3465e6da22cc40c2b884a9"
+  }
+}

@@ -99,6 +99,21 @@ host identity, effective cached-token fraction, and a revision-pinned Gist
 trace. A successful restore response is not counted as cache reuse: current
 llama.cpp builds can reprocess the full prompt for SWA or hybrid-memory models.
 
+### Results
+
+![RAM cache switching TTFT](charts/cache-ram-switch-ttft.svg)
+
+MiMo-V2.5 and DeepSeek-V4-Flash remained RAM-hot through eight active
+conversations. MiniMax M2.7 crossed its cache capacity between two and four;
+Qwen3-235B-A22B crossed between four and eight.
+
+![Explicit disk restore plus TTFT](charts/cache-disk-restore-ttft.svg)
+
+MiniMax and Qwen reused about 99.8–100% of restored prompt tokens. MiMo and
+DeepSeek reused none on this llama.cpp build, so their curves measure restore
+overhead plus full prompt recomputation. All 32 raw metrics artifacts and pinned
+trace links live in [`results/cache-switch`](results/cache-switch).
+
 Validate the 32-point matrix without loading weights:
 
 ```bash

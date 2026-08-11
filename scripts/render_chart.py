@@ -13,12 +13,14 @@ from __future__ import annotations
 import argparse
 from collections import defaultdict
 from html import escape
+from math import ceil, floor, log10
 from pathlib import Path
 from typing import Self
 
 from pydantic import BaseModel, ConfigDict, field_validator, model_validator
 
 from benchmark import ROOT, RunMetrics
+from cache_switch import CachePointArtifact
 
 
 COLORS = ("#2563eb", "#dc2626", "#16a34a", "#9333ea", "#ea580c", "#0891b2")
@@ -106,6 +108,15 @@ class XYPoint(BaseModel):
     y: float
 
 
+class CacheChartPoint(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    model: str
+    mode: str
+    x: float
+    ttft_seconds: float
+
+
 def load_runs(directory: Path) -> tuple[RunMetrics, ...]:
     return tuple(
         RunMetrics.model_validate_json(path.read_text())
@@ -116,6 +127,13 @@ def load_runs(directory: Path) -> tuple[RunMetrics, ...]:
 def load_scores(directory: Path) -> tuple[ScoreArtifact, ...]:
     return tuple(
         ScoreArtifact.model_validate_json(path.read_text())
+        for path in sorted(directory.glob("*.json"))
+    )
+
+
+def load_cache_runs(directory: Path) -> tuple[CachePointArtifact, ...]:
+    return tuple(
+        CachePointArtifact.model_validate_json(path.read_text())
         for path in sorted(directory.glob("*.json"))
     )
 
@@ -176,6 +194,7 @@ def _render_xy_svg(
     y_limit: float | None = None,
     x_ticks: tuple[float, ...] | None = None,
     label_points: bool = True,
+    log_y: bool = False,
 ) -> str:
     width, height = 1120, 620
     left, right, top, bottom = 90, 320, 60, 80
@@ -192,12 +211,27 @@ def _render_xy_svg(
     max_x = max(point.x for point in points)
     x_limit = max(1.0, max_x * 1.08)
     max_y = max(point.y for point in points)
-    y_limit = y_limit or max(1.0, max_y * 1.08)
+    if log_y:
+        if any(point.y <= 0 for point in points):
+            raise ValueError("log-scale values must be positive")
+        log_y_min = floor(log10(min(point.y for point in points)))
+        log_y_max = ceil(log10(max_y))
+        if log_y_min == log_y_max:
+            log_y_max += 1
+        y_ticks = tuple(10**power for power in range(log_y_min, log_y_max + 1))
+    else:
+        y_limit = y_limit or max(1.0, max_y * 1.08)
+        y_ticks = tuple(y_limit * index / 5 for index in range(6))
 
     def x(value: float) -> float:
         return left + value / x_limit * plot_width
 
     def y(value: float) -> float:
+        if log_y:
+            return (
+                top + (log_y_max - log10(value)) / (log_y_max - log_y_min) * plot_height
+            )
+        assert y_limit is not None
         return top + (y_limit - value) / y_limit * plot_height
 
     grouped: dict[str, list[XYPoint]] = defaultdict(list)
@@ -210,8 +244,7 @@ def _render_xy_svg(
         f'<text class="title" x="90" y="34">{escape(title)}</text>',
         f'<text class="axis" x="90" y="54">{escape(subtitle)}</text>',
     ]
-    for index in range(6):
-        value = y_limit * index / 5
+    for value in y_ticks:
         ypos = y(value)
         parts.append(
             f'<line x1="{left}" y1="{ypos:.1f}" x2="{left + plot_width}" y2="{ypos:.1f}" stroke="#e2e8f0"/>'
@@ -318,10 +351,66 @@ def render_profile_svg(points: tuple[ProfilePoint, ...], metric: str) -> str:
     )
 
 
+def cache_points(runs: tuple[CachePointArtifact, ...]) -> tuple[CacheChartPoint, ...]:
+    return tuple(
+        CacheChartPoint(
+            model=run.model_label,
+            mode=run.point.mode,
+            x=(
+                float(run.point.conversations)
+                if run.point.mode == "ram"
+                else float(run.point.prompt_tokens)
+            ),
+            ttft_seconds=(
+                run.aggregate.ttft_mean_ms
+                if run.point.mode == "ram"
+                else run.aggregate.end_to_end_ttft_mean_ms
+            )
+            / 1000,
+        )
+        for run in runs
+        if run.status == "completed"
+    )
+
+
+def render_cache_svg(points: tuple[CacheChartPoint, ...], mode: str) -> str:
+    selected = tuple(point for point in points if point.mode == mode)
+    if mode == "ram":
+        title = "RAM cache switching TTFT"
+        subtitle = "16K-token conversations; raw points (n=1); no smoothing; log y-axis"
+        x_label = "Active conversations"
+        x_ticks = (1, 2, 4, 8)
+    elif mode == "disk":
+        title = "Explicit disk restore + TTFT"
+        subtitle = (
+            "Restore plus streamed TTFT; raw points (n=1); no smoothing; log y-axis"
+        )
+        x_label = "Prompt tokens"
+        x_ticks = (8192, 16384, 32768, 49152)
+    else:
+        raise ValueError(f"unknown cache mode: {mode}")
+    return _render_xy_svg(
+        tuple(
+            XYPoint(model=point.model, profile="", x=point.x, y=point.ttft_seconds)
+            for point in selected
+        ),
+        title=title,
+        subtitle=subtitle,
+        x_label=x_label,
+        y_label="TTFT (seconds, log scale)",
+        x_ticks=x_ticks,
+        label_points=False,
+        log_y=True,
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runs", type=Path, default=ROOT / "results" / "runs")
     parser.add_argument("--scores", type=Path, default=ROOT / "results" / "scores")
+    parser.add_argument(
+        "--cache-runs", type=Path, default=ROOT / "results" / "cache-switch"
+    )
     parser.add_argument(
         "--output",
         type=Path,
@@ -337,6 +426,16 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=ROOT / "charts" / "decode-vs-reasoning-budget.svg",
     )
+    parser.add_argument(
+        "--cache-ram-output",
+        type=Path,
+        default=ROOT / "charts" / "cache-ram-switch-ttft.svg",
+    )
+    parser.add_argument(
+        "--cache-disk-output",
+        type=Path,
+        default=ROOT / "charts" / "cache-disk-restore-ttft.svg",
+    )
     return parser.parse_args()
 
 
@@ -345,7 +444,14 @@ def main() -> None:
     runs = load_runs(args.runs)
     points = join_points(runs, load_scores(args.scores))
     profiles = profile_points(runs)
-    for output in (args.output, args.runtime_output, args.decode_output):
+    caches = cache_points(load_cache_runs(args.cache_runs))
+    for output in (
+        args.output,
+        args.runtime_output,
+        args.decode_output,
+        args.cache_ram_output,
+        args.cache_disk_output,
+    ):
         output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(render_svg(points), encoding="utf-8")
     args.runtime_output.write_text(
@@ -354,9 +460,13 @@ def main() -> None:
     args.decode_output.write_text(
         render_profile_svg(profiles, "decode"), encoding="utf-8"
     )
+    args.cache_ram_output.write_text(render_cache_svg(caches, "ram"), encoding="utf-8")
+    args.cache_disk_output.write_text(
+        render_cache_svg(caches, "disk"), encoding="utf-8"
+    )
     print(
-        f"wrote 3 charts from {len(points)} production scores "
-        f"and {len(profiles)} profile runs"
+        f"wrote 5 charts from {len(points)} production scores, "
+        f"{len(profiles)} profile runs, and {len(caches)} cache points"
     )
 
 
