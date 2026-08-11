@@ -7,6 +7,8 @@ GitHub Gists referenced by that artifact.
 
 ## Production profile curves
 
+![Agentic quality versus runtime](charts/agentic-quality-vs-runtime.svg)
+
 ![Runtime versus reasoning budget](charts/runtime-vs-reasoning-budget.svg)
 
 ![Decode throughput versus reasoning budget](charts/decode-vs-reasoning-budget.svg)
@@ -22,14 +24,26 @@ one raw run (`n=1`) with no smoothing.
 | MiniMax M2.7 Q4 | 13.2 min | 18.1 min | 31.3 min | 32.74 tok/s | 30.09 tok/s | 24.33 tok/s |
 | Qwen3-235B-A22B Q4 | 12.9 min | **17.7 min** | **17.8 min** | 21.01 tok/s | 19.65 tok/s | 19.61 tok/s |
 
-Runtime is not quality. Models generated different token counts, and reasoning
-budget is a ceiling rather than a quota. Qwen stopped at the same 20,751 total
-completion tokens in balanced and deep, explaining its flat curve. Blind rubric
-scores are still required before drawing quality conclusions from these runs.
+| Model | Fast quality | Balanced quality | Deep quality |
+|---|---:|---:|---:|
+| DeepSeek-V4-Flash-0731 Q8 | 40/48 | **43/48** | **43/48** |
+| MiMo-V2.5 Q3 | 29/48 | 28/48 | 28/48 |
+| MiniMax M2.7 Q4 | 30/48 | 33/48 | 32/48 |
+| Qwen3-235B-A22B Q4 | 29/48 | 25/48 | 25/48 |
 
-## Legacy agentic quality and runtime
+DeepSeek is the clear quality winner and the clear speed loser. MiniMax is the
+best non-DeepSeek quality/speed compromise; MiMo is fastest but scores lower.
+Qwen is the quality loser in this suite: balanced and deep produced identical
+answers despite the larger ceiling. MiniMax also repeated three of four answers
+across all profiles, so its score movement comes only from the concurrency task.
 
-![Agentic quality versus runtime](charts/agentic-quality-vs-runtime.svg)
+More reasoning budget did not reliably improve this single-run matrix. DeepSeek
+improved from fast to balanced, then plateaued; other models were flat or worse.
+Models generated different token counts, and reasoning budget is a ceiling rather
+than a quota. Scores come from one blind rubric review per answer (`n=1`), so these
+points rank these traces rather than estimate confidence intervals.
+
+## Legacy 10K controls
 
 These points are imported from the original 10K-reasoning run. They used
 temperature zero and remain useful historical controls, but they are not the new

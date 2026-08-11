@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620">
 <rect width="100%" height="100%" fill="#fff"/>
 <style>text{font-family:system-ui,-apple-system,sans-serif}.axis{fill:#475569;font-size:13px}.label{fill:#0f172a;font-size:12px}.title{fill:#0f172a;font-size:24px;font-weight:600}</style>
-<text class="title" x="90" y="34">Agentic quality vs task runtime</text>
-<text class="axis" x="90" y="54">Raw profile points (n=1); no smoothing</text>
+<text class="title" x="90" y="34">Production agentic quality vs task runtime</text>
+<text class="axis" x="90" y="54">Vendor-recommended sampling; raw profile points (n=1); no smoothing</text>
 <line x1="90" y1="540.0" x2="800" y2="540.0" stroke="#e2e8f0"/>
 <text class="axis" x="78" y="544.0" text-anchor="end">0</text>
 <line x1="90" y1="444.0" x2="800" y2="444.0" stroke="#e2e8f0"/>
@@ -18,33 +18,41 @@
 <line x1="90.0" y1="60" x2="90.0" y2="540" stroke="#f1f5f9"/>
 <text class="axis" x="90.0" y="564" text-anchor="middle">0</text>
 <line x1="232.0" y1="60" x2="232.0" y2="540" stroke="#f1f5f9"/>
-<text class="axis" x="232.0" y="564" text-anchor="middle">24.38</text>
+<text class="axis" x="232.0" y="564" text-anchor="middle">53.21</text>
 <line x1="374.0" y1="60" x2="374.0" y2="540" stroke="#f1f5f9"/>
-<text class="axis" x="374.0" y="564" text-anchor="middle">48.76</text>
+<text class="axis" x="374.0" y="564" text-anchor="middle">106.4</text>
 <line x1="516.0" y1="60" x2="516.0" y2="540" stroke="#f1f5f9"/>
-<text class="axis" x="516.0" y="564" text-anchor="middle">73.14</text>
+<text class="axis" x="516.0" y="564" text-anchor="middle">159.6</text>
 <line x1="658.0" y1="60" x2="658.0" y2="540" stroke="#f1f5f9"/>
-<text class="axis" x="658.0" y="564" text-anchor="middle">97.52</text>
+<text class="axis" x="658.0" y="564" text-anchor="middle">212.8</text>
 <line x1="800.0" y1="60" x2="800.0" y2="540" stroke="#f1f5f9"/>
-<text class="axis" x="800.0" y="564" text-anchor="middle">121.9</text>
+<text class="axis" x="800.0" y="564" text-anchor="middle">266</text>
 <line x1="90" y1="540" x2="800" y2="540" stroke="#64748b"/>
 <line x1="90" y1="60" x2="90" y2="540" stroke="#64748b"/>
 <text class="axis" x="445.0" y="600" text-anchor="middle">Task runtime (minutes)</text>
 <text class="axis" transform="translate(24 300.0) rotate(-90)" text-anchor="middle">Rubric score (%)</text>
-<circle cx="747.4" cy="120.0" r="6" fill="#2563eb"><title>DeepSeek-V4-Flash-0731 UD-Q8_K_XL / legacy-10k-temp0: Rubric score (%) 87.5; Task runtime (minutes) 112.9</title></circle>
-<text class="label" x="756.4" y="112.0">legacy-10k-temp0</text>
+<polyline points="245.1,140.0 416.1,110.0 747.4,110.0" fill="none" stroke="#2563eb" stroke-width="2"/>
+<circle cx="245.1" cy="140.0" r="6" fill="#2563eb"><title>DeepSeek-V4-Flash-0731 UD-Q8_K_XL / fast: Rubric score (%) 83.3; Task runtime (minutes) 58.1</title></circle>
+<circle cx="416.1" cy="110.0" r="6" fill="#2563eb"><title>DeepSeek-V4-Flash-0731 UD-Q8_K_XL / balanced: Rubric score (%) 89.6; Task runtime (minutes) 122.2</title></circle>
+<circle cx="747.4" cy="110.0" r="6" fill="#2563eb"><title>DeepSeek-V4-Flash-0731 UD-Q8_K_XL / deep: Rubric score (%) 89.6; Task runtime (minutes) 246.3</title></circle>
 <circle cx="825" cy="80" r="6" fill="#2563eb"/>
 <text class="label" x="839" y="84">DeepSeek-V4-Flash-0731 UD-Q8_K_XL</text>
-<circle cx="212.6" cy="180.0" r="6" fill="#dc2626"><title>MiMo-V2.5 UD-Q3_K_M / legacy-10k-temp0: Rubric score (%) 75.0; Task runtime (minutes) 21.0</title></circle>
-<text class="label" x="221.6" y="172.0">legacy-10k-temp0</text>
+<polyline points="118.1,250.0 147.7,260.0 197.3,260.0" fill="none" stroke="#dc2626" stroke-width="2"/>
+<circle cx="118.1" cy="250.0" r="6" fill="#dc2626"><title>MiMo-V2.5 UD-Q3_K_M / fast: Rubric score (%) 60.4; Task runtime (minutes) 10.5</title></circle>
+<circle cx="147.7" cy="260.0" r="6" fill="#dc2626"><title>MiMo-V2.5 UD-Q3_K_M / balanced: Rubric score (%) 58.3; Task runtime (minutes) 21.6</title></circle>
+<circle cx="197.3" cy="260.0" r="6" fill="#dc2626"><title>MiMo-V2.5 UD-Q3_K_M / deep: Rubric score (%) 58.3; Task runtime (minutes) 40.2</title></circle>
 <circle cx="825" cy="122" r="6" fill="#dc2626"/>
 <text class="label" x="839" y="126">MiMo-V2.5 UD-Q3_K_M</text>
-<circle cx="239.2" cy="200.0" r="6" fill="#16a34a"><title>MiniMax M2.7 UD-Q4_K_M / legacy-10k-temp0: Rubric score (%) 70.8; Task runtime (minutes) 25.6</title></circle>
-<text class="label" x="248.2" y="192.0">legacy-10k-temp0</text>
+<polyline points="125.1,240.0 138.3,210.0 173.6,220.0" fill="none" stroke="#16a34a" stroke-width="2"/>
+<circle cx="125.1" cy="240.0" r="6" fill="#16a34a"><title>MiniMax M2.7 UD-Q4_K_M / fast: Rubric score (%) 62.5; Task runtime (minutes) 13.2</title></circle>
+<circle cx="138.3" cy="210.0" r="6" fill="#16a34a"><title>MiniMax M2.7 UD-Q4_K_M / balanced: Rubric score (%) 68.8; Task runtime (minutes) 18.1</title></circle>
+<circle cx="173.6" cy="220.0" r="6" fill="#16a34a"><title>MiniMax M2.7 UD-Q4_K_M / deep: Rubric score (%) 66.7; Task runtime (minutes) 31.3</title></circle>
 <circle cx="825" cy="164" r="6" fill="#16a34a"/>
 <text class="label" x="839" y="168">MiniMax M2.7 UD-Q4_K_M</text>
-<circle cx="300.9" cy="220.0" r="6" fill="#9333ea"><title>Qwen3-235B-A22B Q4_K_M / legacy-10k-temp0: Rubric score (%) 66.7; Task runtime (minutes) 36.2</title></circle>
-<text class="label" x="309.9" y="212.0">legacy-10k-temp0</text>
+<polyline points="124.4,250.0 137.3,290.0 137.4,290.0" fill="none" stroke="#9333ea" stroke-width="2"/>
+<circle cx="124.4" cy="250.0" r="6" fill="#9333ea"><title>Qwen3-235B-A22B Q4_K_M / fast: Rubric score (%) 60.4; Task runtime (minutes) 12.9</title></circle>
+<circle cx="137.3" cy="290.0" r="6" fill="#9333ea"><title>Qwen3-235B-A22B Q4_K_M / balanced: Rubric score (%) 52.1; Task runtime (minutes) 17.7</title></circle>
+<circle cx="137.4" cy="290.0" r="6" fill="#9333ea"><title>Qwen3-235B-A22B Q4_K_M / deep: Rubric score (%) 52.1; Task runtime (minutes) 17.8</title></circle>
 <circle cx="825" cy="206" r="6" fill="#9333ea"/>
 <text class="label" x="839" y="210">Qwen3-235B-A22B Q4_K_M</text>
 </svg>

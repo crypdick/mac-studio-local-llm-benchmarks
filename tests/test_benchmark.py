@@ -81,7 +81,7 @@ class BenchmarkContractTest(unittest.TestCase):
             )
         )
         self.assertIn("balanced", svg)
-        self.assertIn("Raw profile points (n=1); no smoothing", svg)
+        self.assertIn("raw profile points (n=1); no smoothing", svg)
 
     def test_profile_charts_use_native_runs(self) -> None:
         points = profile_points(load_runs(ROOT / "results" / "runs"))
@@ -98,7 +98,9 @@ class BenchmarkContractTest(unittest.TestCase):
         runs = load_runs(ROOT / "results" / "runs")
         scores = load_scores(ROOT / "results" / "scores")
         self.assertEqual(16, len(runs))
-        self.assertEqual(4, len(join_points(runs, scores)))
+        points = join_points(runs, scores)
+        self.assertEqual(16, len(points))
+        self.assertEqual(12, sum(point.provenance == "native" for point in points))
         self.assertTrue(
             all(
                 run.trace.gist_revision_url

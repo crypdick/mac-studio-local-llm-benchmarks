@@ -84,6 +84,7 @@ class Point(BaseModel):
     profile: str
     minutes: float
     score_percent: float
+    provenance: str = "native"
 
 
 class ProfilePoint(BaseModel):
@@ -140,6 +141,7 @@ def join_points(
                 profile=run.profile.name,
                 minutes=run.aggregate.task_wall_s / 60,
                 score_percent=score.score * 100 / score.maximum,
+                provenance=run.provenance,
             )
         )
     return tuple(points)
@@ -283,11 +285,12 @@ def render_svg(points: tuple[Point, ...]) -> str:
             )
             for point in points
         ),
-        title="Agentic quality vs task runtime",
-        subtitle="Raw profile points (n=1); no smoothing",
+        title="Production agentic quality vs task runtime",
+        subtitle="Vendor-recommended sampling; raw profile points (n=1); no smoothing",
         x_label="Task runtime (minutes)",
         y_label="Rubric score (%)",
         y_limit=100,
+        label_points=False,
     )
 
 
@@ -345,17 +348,21 @@ def main() -> None:
     args = parse_args()
     runs = load_runs(args.runs)
     points = join_points(runs, load_scores(args.scores))
+    production_points = tuple(point for point in points if point.provenance == "native")
     profiles = profile_points(runs)
     for output in (args.output, args.runtime_output, args.decode_output):
         output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(render_svg(points), encoding="utf-8")
+    args.output.write_text(render_svg(production_points), encoding="utf-8")
     args.runtime_output.write_text(
         render_profile_svg(profiles, "runtime"), encoding="utf-8"
     )
     args.decode_output.write_text(
         render_profile_svg(profiles, "decode"), encoding="utf-8"
     )
-    print(f"wrote 3 charts from {len(points)} scored and {len(profiles)} profile runs")
+    print(
+        f"wrote 3 charts from {len(production_points)} production scores "
+        f"and {len(profiles)} profile runs"
+    )
 
 
 if __name__ == "__main__":
