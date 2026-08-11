@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "run_id": "20260811T010240Z-qwen3-235b-a22b-fast",
+  "benchmark": "agentic-real-world-v1",
+  "provenance": "native",
+  "limitations": [],
+  "status": "completed",
+  "error": null,
+  "suite_sha256": "b0375e05af3eaee786ed1f1b84854909e80356007d8e1bb0eb1ff46d61b51420",
+  "started_at": "2026-08-11T01:02:40.493948+00:00",
+  "finished_at": "2026-08-11T01:15:43.440276+00:00",
+  "model_key": "qwen3-235b-a22b",
+  "model_label": "Qwen3-235B-A22B Q4_K_M",
+  "profile": {
+    "name": "fast",
+    "max_tokens": 8192,
+    "reasoning_budget": 4096
+  },
+  "config_source_sha256": "df2b1d1e415946c5377d5898f68687894a52e85e046f2991e0e5d8fb11d8b8f0",
+  "resolved_config_sha256": "7487b9b38aaf7c49464b33c5c3dbae9803f2cc461b6cde85d3757b6a1d37cc93",
+  "resolved_config": {
+    "schema_version": 1,
+    "key": "qwen3-235b-a22b",
+    "label": "Qwen3-235B-A22B Q4_K_M",
+    "alias": "qwen3-235b-q4",
+    "weights": {
+      "path_env": "QWEN3_MODEL",
+      "quant": "Q4_K_M",
+      "source_url": "https://huggingface.co/unsloth/Qwen3-235B-A22B-GGUF",
+      "source_revision": "09e11417ffdc30c1c63d0296a40fd8fde0abb180"
+    },
+    "server": {
+      "context_size": 65536,
+      "parallel": 1,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "flash_attention": true,
+      "batch_size": 2048,
+      "ubatch_size": 2048,
+      "gpu_layers": 999,
+      "cache_ram_mib": 8192,
+      "ctx_checkpoints": 32,
+      "slot_prompt_similarity": 0.1,
+      "request_timeout_s": 7200,
+      "health_timeout_s": 300,
+      "extra_args": []
+    },
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "min_p": 0.0,
+      "seed": 42
+    },
+    "sampling_source_url": "https://huggingface.co/Qwen/Qwen3-235B-A22B",
+    "profiles": [
+      {
+        "name": "fast",
+        "max_tokens": 8192,
+        "reasoning_budget": 4096
+      },
+      {
+        "name": "balanced",
+        "max_tokens": 16384,
+        "reasoning_budget": 10000
+      },
+      {
+        "name": "deep",
+        "max_tokens": 32768,
+        "reasoning_budget": 24000
+      }
+    ]
+  },
+  "model_identity": {
+    "source_url": "https://huggingface.co/unsloth/Qwen3-235B-A22B-GGUF",
+    "source_revision": "09e11417ffdc30c1c63d0296a40fd8fde0abb180",
+    "quant": "Q4_K_M",
+    "files": [
+      {
+        "name": "Qwen3-235B-A22B-Q4_K_M-00001-of-00003.gguf",
+        "bytes": 49944699648,
+        "sha256": "a8bc43ded2ef4868ea31302ddbfa8cd45dbbeecb476f4372337f41fe51b8a1cb"
+      },
+      {
+        "name": "Qwen3-235B-A22B-Q4_K_M-00002-of-00003.gguf",
+        "bytes": 49930349824,
+        "sha256": "a1131375023518eb494c951708e79a3a82405e96ddc093c44994a96d0f001927"
+      },
+      {
+        "name": "Qwen3-235B-A22B-Q4_K_M-00003-of-00003.gguf",
+        "bytes": 42279026016,
+        "sha256": "5d33367138d337305f8f12395f3f2ed850afa0935e98cfcf4d7247143599c500"
+      }
+    ],
+    "aggregate_sha256": "a092476ac27113c71a58ecdd77f930dd20b6a0404a5fbdc6845cdbd5f72f59e7"
+  },
+  "host": {
+    "hostname": "RicardoacStudio",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "macos_version": "26.6.1",
+    "hardware_model": "Mac14,14",
+    "memory_bytes": 206158430208
+  },
+  "software": {
+    "runner_commit": "3771980f4583f14f3801985c26745dce766059d6",
+    "runner_dirty": false,
+    "llama_server": "llama-server",
+    "llama_server_version": "unknown"
+  },
+  "tasks": [
+    {
+      "task": "incident",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 95.88448129198514,
+      "prompt_tokens": 854,
+      "completion_tokens": 2094,
+      "cached_tokens": 0,
+      "prompt_ms": 2828.922,
+      "prompt_tps": 301.8817768747247,
+      "decode_ms": 93037.844,
+      "decode_tps": 22.506970389382627,
+      "error": null
+    },
+    {
+      "task": "concurrency",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 274.6168349579966,
+      "prompt_tokens": 567,
+      "completion_tokens": 5535,
+      "cached_tokens": 92,
+      "prompt_ms": 1761.866,
+      "prompt_tps": 269.60052580616235,
+      "decode_ms": 272849.064,
+      "decode_tps": 20.285940947922768,
+      "error": null
+    },
+    {
+      "task": "migration",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 270.359467125003,
+      "prompt_tokens": 425,
+      "completion_tokens": 5512,
+      "cached_tokens": 91,
+      "prompt_ms": 1360.369,
+      "prompt_tps": 245.52161950176756,
+      "decode_ms": 268943.37,
+      "decode_tps": 20.495020940653788,
+      "error": null
+    },
+    {
+      "task": "quantum",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 133.33686383298482,
+      "prompt_tokens": 452,
+      "completion_tokens": 2967,
+      "cached_tokens": 91,
+      "prompt_ms": 1447.183,
+      "prompt_tps": 249.45013864867127,
+      "decode_ms": 131834.697,
+      "decode_tps": 22.50545620778421,
+      "error": null
+    }
+  ],
+  "aggregate": {
+    "load_s": 8.036734332999913,
+    "task_wall_s": 774.1976472079696,
+    "total_wall_s": 784.9827575420204,
+    "successful_tasks": 4,
+    "natural_finishes": 4,
+    "prompt_tokens": 2298,
+    "completion_tokens": 16108,
+    "prompt_tps": 273.5748830142978,
+    "decode_tps": 21.01048114269209,
+    "server_rss_peak_gib": 140.23040771484375
+  },
+  "trace": {
+    "sha256": "82a8a16b091d7f08d60107650cd52778aeb56e1d63db45f87aed9f36f8a5d58e",
+    "bytes": 168159,
+    "gist_id": "f0598f29abd09cd8abd2afea0ddb36f4",
+    "gist_url": "https://gist.github.com/crypdick/f0598f29abd09cd8abd2afea0ddb36f4",
+    "gist_revision": "161f4945f34ef88a53a1a5a205e069cf5a383b76",
+    "gist_revision_url": "https://gist.github.com/crypdick/f0598f29abd09cd8abd2afea0ddb36f4/161f4945f34ef88a53a1a5a205e069cf5a383b76"
+  }
+}

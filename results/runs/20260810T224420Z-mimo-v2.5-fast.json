@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "run_id": "20260810T224420Z-mimo-v2.5-fast",
+  "benchmark": "agentic-real-world-v1",
+  "provenance": "native",
+  "limitations": [],
+  "status": "completed",
+  "error": null,
+  "suite_sha256": "b0375e05af3eaee786ed1f1b84854909e80356007d8e1bb0eb1ff46d61b51420",
+  "started_at": "2026-08-10T22:44:20.109296+00:00",
+  "finished_at": "2026-08-10T22:55:00.313210+00:00",
+  "model_key": "mimo-v2.5",
+  "model_label": "MiMo-V2.5 UD-Q3_K_M",
+  "profile": {
+    "name": "fast",
+    "max_tokens": 8192,
+    "reasoning_budget": 4096
+  },
+  "config_source_sha256": "f9db5fada0ef8d8587724004f08e68b8078de006149d0600ad7ccd414e07ec21",
+  "resolved_config_sha256": "21142d70b774af3a1c8436acd691812b4d1da4fa53df3ed4048dca1abe4c53b6",
+  "resolved_config": {
+    "schema_version": 1,
+    "key": "mimo-v2.5",
+    "label": "MiMo-V2.5 UD-Q3_K_M",
+    "alias": "mimo-v2.5-q3",
+    "weights": {
+      "path_env": "MIMO_MODEL",
+      "quant": "UD-Q3_K_M",
+      "source_url": "https://huggingface.co/unsloth/MiMo-V2.5-GGUF",
+      "source_revision": "f7aff7868d5f79da58b505f84626d7a807393c37"
+    },
+    "server": {
+      "context_size": 65536,
+      "parallel": 1,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "flash_attention": true,
+      "batch_size": 2048,
+      "ubatch_size": 2048,
+      "gpu_layers": 999,
+      "cache_ram_mib": 8192,
+      "ctx_checkpoints": 32,
+      "slot_prompt_similarity": 0.1,
+      "request_timeout_s": 7200,
+      "health_timeout_s": 300,
+      "extra_args": []
+    },
+    "sampling": {
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": null,
+      "min_p": null,
+      "seed": 42
+    },
+    "sampling_source_url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5",
+    "profiles": [
+      {
+        "name": "fast",
+        "max_tokens": 8192,
+        "reasoning_budget": 4096
+      },
+      {
+        "name": "balanced",
+        "max_tokens": 16384,
+        "reasoning_budget": 10000
+      },
+      {
+        "name": "deep",
+        "max_tokens": 32768,
+        "reasoning_budget": 24000
+      }
+    ]
+  },
+  "model_identity": {
+    "source_url": "https://huggingface.co/unsloth/MiMo-V2.5-GGUF",
+    "source_revision": "f7aff7868d5f79da58b505f84626d7a807393c37",
+    "quant": "UD-Q3_K_M",
+    "files": [
+      {
+        "name": "MiMo-V2.5-UD-Q3_K_M-00001-of-00004.gguf",
+        "bytes": 5953760,
+        "sha256": "d109d6fbd8a63adc586769aa00917f882ef8a3ac49a38afc1c81cdd8f9163b8d"
+      },
+      {
+        "name": "MiMo-V2.5-UD-Q3_K_M-00002-of-00004.gguf",
+        "bytes": 48908106912,
+        "sha256": "539a28cd91a5745c3fb5ce8ca941a8d83bc8b619860e43c358c59042c3561ff3"
+      },
+      {
+        "name": "MiMo-V2.5-UD-Q3_K_M-00003-of-00004.gguf",
+        "bytes": 49110646080,
+        "sha256": "bc725413e9ce3f734596f53eaee8350fbae688b8d538a412a09890c66799e0d6"
+      },
+      {
+        "name": "MiMo-V2.5-UD-Q3_K_M-00004-of-00004.gguf",
+        "bytes": 42006735584,
+        "sha256": "38379bf2565b4d4f49f809d9b0e5d719db74e2e8d4647ff3c2c0ed9c2999e54f"
+      }
+    ],
+    "aggregate_sha256": "ab424bf463f2d5963a4b426606c71d869cbdbfb574abfe6c239f421e313ae2ae"
+  },
+  "host": {
+    "hostname": "RicardoacStudio",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64",
+    "macos_version": "26.6.1",
+    "hardware_model": "Mac14,14",
+    "memory_bytes": 206158430208
+  },
+  "software": {
+    "runner_commit": "3771980f4583f14f3801985c26745dce766059d6",
+    "runner_dirty": false,
+    "llama_server": "llama-server",
+    "llama_server_version": "unknown"
+  },
+  "tasks": [
+    {
+      "task": "incident",
+      "ok": true,
+      "finish_reason": "length",
+      "wall_s": 222.50077299997793,
+      "prompt_tokens": 852,
+      "completion_tokens": 8192,
+      "cached_tokens": 0,
+      "prompt_ms": 2676.708,
+      "prompt_tps": 318.3014359429568,
+      "decode_ms": 219816.203,
+      "decode_tps": 37.26749842913081,
+      "error": null
+    },
+    {
+      "task": "concurrency",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 169.10028212500038,
+      "prompt_tokens": 565,
+      "completion_tokens": 6352,
+      "cached_tokens": 86,
+      "prompt_ms": 1506.502,
+      "prompt_tps": 317.955103942776,
+      "decode_ms": 167578.223,
+      "decode_tps": 37.9046864579773,
+      "error": null
+    },
+    {
+      "task": "migration",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 164.87358316700556,
+      "prompt_tokens": 423,
+      "completion_tokens": 6219,
+      "cached_tokens": 86,
+      "prompt_ms": 1267.038,
+      "prompt_tps": 265.97465900785926,
+      "decode_ms": 163592.452,
+      "decode_tps": 38.015201337039684,
+      "error": null
+    },
+    {
+      "task": "quantum",
+      "ok": true,
+      "finish_reason": "stop",
+      "wall_s": 74.92410129099153,
+      "prompt_tokens": 450,
+      "completion_tokens": 2890,
+      "cached_tokens": 86,
+      "prompt_ms": 1286.95,
+      "prompt_tps": 282.8392711449551,
+      "decode_ms": 73623.138,
+      "decode_tps": 39.253963882930385,
+      "error": null
+    }
+  ],
+  "aggregate": {
+    "load_s": 8.037532499991357,
+    "task_wall_s": 631.3987395829754,
+    "total_wall_s": 642.3648899999971,
+    "successful_tasks": 4,
+    "natural_finishes": 3,
+    "prompt_tokens": 2290,
+    "completion_tokens": 23653,
+    "prompt_tps": 301.60906655853074,
+    "decode_tps": 37.868428930220674,
+    "server_rss_peak_gib": 131.01516723632812
+  },
+  "trace": {
+    "sha256": "fba5122d8ffb67c8eaf3ad4854a2a30083dc9ff39369c08637c036b36c8f04eb",
+    "bytes": 232547,
+    "gist_id": "6b008c679b78886081123e39b9ea62b1",
+    "gist_url": "https://gist.github.com/crypdick/6b008c679b78886081123e39b9ea62b1",
+    "gist_revision": "a1ec94e94a7d12064b22a59771fd5bc4ca5fbd31",
+    "gist_revision_url": "https://gist.github.com/crypdick/6b008c679b78886081123e39b9ea62b1/a1ec94e94a7d12064b22a59771fd5bc4ca5fbd31"
+  }
+}
